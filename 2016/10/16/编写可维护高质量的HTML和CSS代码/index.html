@@ -1,0 +1,1126 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="高性能 CSS," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/imgs/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="本文主要参考MDN|编写高效的CSS、译文编写高性能高质量的CSS代码、《高性能网站建设指南》、谷歌|优化性能、《web前端最佳实践》—高性能css等总结而出。感谢前人的智慧！
+
+[TOC]
+
+##前言
+CSS代码重构的目的：我们写CSS代码时，不仅仅只是完成页面设计的效果，还应该让CSS代码易于管理，维护。我们对CSS代码重构主要有两个目的：1、提高代码性能2、提高代码的可维护性
+在这里我主要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编写高性能的CSS代码">
+<meta property="og:url" content="http://adukingc.com/2016/10/16/编写可维护高质量的HTML和CSS代码/index.html">
+<meta property="og:site_name" content="阿杜">
+<meta property="og:description" content="本文主要参考MDN|编写高效的CSS、译文编写高性能高质量的CSS代码、《高性能网站建设指南》、谷歌|优化性能、《web前端最佳实践》—高性能css等总结而出。感谢前人的智慧！
+
+[TOC]
+
+##前言
+CSS代码重构的目的：我们写CSS代码时，不仅仅只是完成页面设计的效果，还应该让CSS代码易于管理，维护。我们对CSS代码重构主要有两个目的：1、提高代码性能2、提高代码的可维护性
+在这里我主要">
+<meta property="og:updated_time" content="2016-10-16T01:42:11.400Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="编写高性能的CSS代码">
+<meta name="twitter:description" content="本文主要参考MDN|编写高效的CSS、译文编写高性能高质量的CSS代码、《高性能网站建设指南》、谷歌|优化性能、《web前端最佳实践》—高性能css等总结而出。感谢前人的智慧！
+
+[TOC]
+
+##前言
+CSS代码重构的目的：我们写CSS代码时，不仅仅只是完成页面设计的效果，还应该让CSS代码易于管理，维护。我们对CSS代码重构主要有两个目的：1、提高代码性能2、提高代码的可维护性
+在这里我主要">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://adukingc.com/2016/10/16/编写可维护高质量的HTML和CSS代码/"/>
+
+
+  <title> 编写高性能的CSS代码 | 阿杜 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?knox";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">阿杜</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">stay hungry，stay foolish！</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                编写高性能的CSS代码
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-16T09:38:40+08:00" content="2016-10-16">
+              2016-10-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/16/编写可维护高质量的HTML和CSS代码/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/16/编写可维护高质量的HTML和CSS代码/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/10/16/编写可维护高质量的HTML和CSS代码/" class="leancloud_visitors" data-flag-title="编写高性能的CSS代码">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>本文主要参考<a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Writing_efficient_CSS" target="_blank" rel="external">MDN|编写高效的CSS</a>、译文<a href="http://www.reqianduan.com/2595.html" target="_blank" rel="external">编写高性能高质量的CSS代码</a>、《高性能网站建设指南》、<a href="https://developers.google.com/web/fundamentals/performance/" target="_blank" rel="external">谷歌|优化性能</a>、<a href="http://www.html-js.com/article/Front-end-home-best-practice-in-front-of-the-web-high-performance-CSS" target="_blank" rel="external">《web前端最佳实践》—高性能css</a>等总结而出。感谢前人的智慧！</p>
+</blockquote>
+<p>[TOC]</p>
+<hr>
+<p>##前言</p>
+<h3 id="CSS代码重构的目的："><a href="#CSS代码重构的目的：" class="headerlink" title="CSS代码重构的目的："></a>CSS代码重构的目的：</h3><p>我们写CSS代码时，不仅仅只是完成页面设计的效果，还应该让CSS代码易于管理，维护。我们对CSS代码重构主要有两个目的：<br>1、提高代码性能<br>2、提高代码的可维护性</p>
+<p>在这里我主要讲解CSS代码性能提升的一些知识。</p>
+<h3 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h3><blockquote>
+<p>性能优化是一门做减法的艺术。我们首要要尽力简化页面渲染过程，然后要使渲染过程的每一步都尽量高效。</p>
+</blockquote>
+<p><strong>提高CSS代码性能主要有两个点</strong>：</p>
+<p>1、提高页面的加载性能</p>
+<blockquote>
+<p>提高页面的加载性能，简单说就是减小CSS文件的大小，提高页面的加载速度，尽可以的利用http缓存</p>
+</blockquote>
+<p>2、提高CSS代码性能</p>
+<blockquote>
+<p>不同的CSS代码，浏览器对其解析的速度也是不一样的，如何提高浏览器解析CSS代码的速度也是我们要考虑的</p>
+</blockquote>
+<p>[TOC]</p>
+<h2 id="1-CSS选择器"><a href="#1-CSS选择器" class="headerlink" title="1.CSS选择器"></a>1.CSS选择器</h2><p>CSS选择器具有高效的继承性，引用Steve Souders的话， CSS选择器效率从高到低的排序如下：</p>
+<ul>
+<li>ID选择器 比如#header</li>
+<li>类选择器 比如.promo</li>
+<li>元素选择器 比如 div</li>
+<li>兄弟选择器 比如 h2 + p</li>
+<li>子选择器 比如 li &gt; ul</li>
+<li>后代选择器 比如 ul a 7. 通用选择器 比如 *</li>
+<li>属性选择器 比如 type = “text”</li>
+<li>伪类/伪元素选择器 比如 a:hover<br><em>以上引用自<a href="http://stevesouders.com/" target="_blank" rel="external">Steve Souders</a>的Even Faster网站</em></li>
+</ul>
+<p>纵使ID选择器很快、高效，但是它也仅仅如此,，尽量不要再css里面使用id。从Steve Souders的CSS Test我们可以看出ID选择器和类选择器在速度上的差异很小很小。</p>
+<h3 id="1-1组合选择器"><a href="#1-1组合选择器" class="headerlink" title="1.1组合选择器"></a>1.1组合选择器</h3><p>你可以有一个标准的选择器比如#nav，来选择任何在此元素下的后代元素。此刻，我们读这些是从左到右的方式。我们是先找到#nav，然后从它的里面找其他元素。但是浏览器解析这些不是这样的：浏览器解析选择器是从右到左的方式。</p>
+<p><em>如果想要知道更多浏览器这样解析的原因，请看<a href="http://stackoverflow.com/questions/5797014/why-do-browsers-match-CSS-selectors-from-right-to-left" target="_blank" rel="external">Stack Overflow</a>上的讨论</em></p>
+<h3 id="1-2关键选择器"><a href="#1-2关键选择器" class="headerlink" title="1.2关键选择器"></a>1.2关键选择器</h3><p>渲染样式时重要的是选择器的最后面的部分即为关键选择器（即用来匹配目标元素的那部分，而不是该元素的祖先元素）。在以下例子中将使用该术语讲解。</p>
+<p>例如，在下面规则中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">a img, </div><div class="line">div &gt; h1, </div><div class="line">h1 + p &#123;</div><div class="line">  …</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>关键选择器为：<code>img</code>、<code>h1</code>、<code>p</code></p>
+<p>CSS规范并没有明确浏览器如何去实现样式系统，仅仅是说明了它们必须这样做。有鉴于此，不同的样式系统引擎可能会拥有完全不同的表现和行为，特别是 Gecko 与 WebKit， 这两个引擎都是开源项目，实现了类似的算法，具有极其相近的优缺点。接下来就让我们一睹样式系统如何工作…</p>
+<p>[TOC]</p>
+<h2 id="2-样式系统工作原理"><a href="#2-样式系统工作原理" class="headerlink" title="2.样式系统工作原理"></a>2.样式系统工作原理</h2><h3 id="2-1样式系统如何拆分规则"><a href="#2-1样式系统如何拆分规则" class="headerlink" title="2.1样式系统如何拆分规则"></a>2.1样式系统如何拆分规则</h3><p>编写好的CSS代码，有助提升页面的渲染速度。本质上，引擎需要解析的CSS规则越少，性能越好。样式系统将规则拆分成四个主要类别，如下所示，性能依次降低。</p>
+<ul>
+<li>ID规则</li>
+<li>class规则</li>
+<li>标签规则</li>
+<li>通用规则</li>
+</ul>
+<p>理解这些分类是十分关键的，因为它们是构建规则匹配块的基础。</p>
+<h4 id="ID规则"><a href="#ID规则" class="headerlink" title="ID规则"></a>ID规则</h4><blockquote>
+<p>即包含了那些将 ID 选择器作为关键选择器的规则。</p>
+</blockquote>
+<p>示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#nav &#123;.....&#125;</div><div class="line">a#person-intruc &#123;.....&#125;</div><div class="line">#nav[href=&quot;#&quot;] &#123;.....&#125;</div><div class="line">.....</div></pre></td></tr></table></figure>
+<h4 id="class规则"><a href="#class规则" class="headerlink" title="class规则"></a>class规则</h4><blockquote>
+<p>如果一个规则将一个 class 明确作为它的关键选择器，那么它就属于该类别。</p>
+</blockquote>
+<p>示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">.nav &#123;.....&#125;</div><div class="line">a.person-intruc &#123;.....&#125;</div><div class="line">.nav[href=&quot;#&quot;] &#123;.....&#125;</div><div class="line">.....</div></pre></td></tr></table></figure>
+<h4 id="标签规则"><a href="#标签规则" class="headerlink" title="标签规则"></a>标签规则</h4><blockquote>
+<p>如果既没有 class 也没有 ID 来明确作为关键选择器，那么接下来的候选者就是 标签 类别。 如果一条规则将一个标签作为它的关键选择器，那么这条规则就属于该类别。</p>
+</blockquote>
+<p>示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">li &#123;.....&#125;</div><div class="line">a &gt; img &#123;.....&#125;</div><div class="line">a[href=&quot;#&quot;]&#123;.....&#125;</div><div class="line">p+ul&#123;.....&#125;</div><div class="line">.....</div></pre></td></tr></table></figure>
+<h4 id="通用规则"><a href="#通用规则" class="headerlink" title="通用规则"></a>通用规则</h4><blockquote>
+<p>不属于上面那些类别的规则都属于这个类别。</p>
+</blockquote>
+<p>示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[hidden=&quot;true&quot;] &#123;…&#125; /* A universal rule */  </div><div class="line">* &#123;…&#125;		/* A universal rule */</div><div class="line">tree &gt; [collapsed=&quot;true&quot;] &#123;…&#125; /* A universal rule */</div></pre></td></tr></table></figure>
+<h3 id="2-2样式系统如何匹配规则"><a href="#2-2样式系统如何匹配规则" class="headerlink" title="2.2样式系统如何匹配规则"></a>2.2样式系统如何匹配规则</h3><blockquote>
+<p>样式系统从关键选择器开始匹配规则，然后左移（查找规则选择器的任何祖先元素）。只要选择器的子树（substree）一直在检查，样式系统就会持续左移，直到和规则匹配，或者是因为不匹配而放弃该条规则。在这其中涉及到规则过滤的基本概念，分类的意义恰恰在此，过滤掉无关的规则（避免浪费时间去匹配）。</p>
+</blockquote>
+<hr>
+<p><strong>现在问题来了，那么什么样式的CSS代码能够更快的匹配，不浪费时间呢？</strong></p>
+<p>[TOC]</p>
+<h2 id="3-高效的CSS代码编写"><a href="#3-高效的CSS代码编写" class="headerlink" title="3.高效的CSS代码编写"></a>3.高效的CSS代码编写</h2><h3 id="3-1避免使用通用规则和单个属性选择器作为关键选择器"><a href="#3-1避免使用通用规则和单个属性选择器作为关键选择器" class="headerlink" title="3.1避免使用通用规则和单个属性选择器作为关键选择器"></a>3.1避免使用通用规则和单个属性选择器作为关键选择器</h3><blockquote>
+<p>如<code>*</code>、<code>[hidden=&quot;true&quot;]</code>等通用规则十分浪费匹配时间。不必要时尽量不使用。</p>
+</blockquote>
+<h3 id="3-2避免过度约束"><a href="#3-2避免过度约束" class="headerlink" title="3.2避免过度约束"></a>3.2避免过度约束</h3><p>不要用标签名或 classes 来限定 ID 规则，不要用标签名限定 class 规则</p>
+<blockquote>
+<p><strong>如果规则拥有 ID 选择器作为其关键选择器，则不要为规则增加标签名</strong>。因为 ID 是唯一的，增加标签只会没必要地减缓匹配过程。</p>
+<p><strong>对于ID的在class这里同样适用。标签可能会随着设计改变</strong>，所以仅仅选择严格语义化的名字作为类名并运用是很好的选择。</p>
+</blockquote>
+<p><em>【注意】</em>定义过多id会使重用性降低，维护更困难，所以不建议多用id。</p>
+<p><em>尽量使用最具体的类别</em>，即能一次搞定就一次搞定。<em>解析速度变慢的罪魁祸首就是标签类别中有过多的规则。</em>通过增加 class 到元素上，我们就可以进一步的将这些规则划分到 Class 类别中，这将减少用于匹配标签的时间。</p>
+<h3 id="3-3避免后代选择器"><a href="#3-3避免后代选择器" class="headerlink" title="3.3避免后代选择器"></a>3.3避免后代选择器</h3><p><strong>后代选择器是 CSS 中性能耗用最大的选择器。</strong>它的性能开销相当大——特别是当选择器在标签或通用类别中。通常我们需要的是 <strong>子选择器</strong>。不仅性能低下而且代码很脆弱，html代码和css代码严重耦合，html代码结构发生变化时，CSS也得修改。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">差</div><div class="line">treehead treerow treecell &#123;…&#125;</div><div class="line"></div><div class="line">略好，但还是差（查看下一条指南）</div><div class="line">treehead &gt; treerow &gt; treecell &#123;…&#125;</div></pre></td></tr></table></figure>
+<h3 id="3-4标签分类的规则不要包含子选择器"><a href="#3-4标签分类的规则不要包含子选择器" class="headerlink" title="3.4标签分类的规则不要包含子选择器"></a>3.4标签分类的规则不要包含子选择器</h3><blockquote>
+<p><strong>标签类别的规则中避免使用子选择器</strong>。否则的话，在该元素出现的所有地方，匹配时间都将极大延长（特别是当规则很可能会被匹配）。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">差</div><div class="line">treehead &gt; treerow &gt; treecell &#123;…&#125;</div><div class="line">好//采用class规则</div><div class="line">.treecell-header &#123;…&#125;</div></pre></td></tr></table></figure>
+<p>当使用子选择器时要十分谨慎。能免则免。</p>
+<h3 id="3-5了解依赖继承，减少代码量"><a href="#3-5了解依赖继承，减少代码量" class="headerlink" title="3.5了解依赖继承，减少代码量"></a>3.5了解依赖继承，减少代码量</h3><blockquote>
+<p>了解哪些属性能够继承，然后允许它们这样做！</p>
+</blockquote>
+<p>不可以继承的属性：<br>position、z-index、top、right、bottom、left、clip、display、</p>
+<p>可以继承的属性：<br>color、font、text-transform、white-space、tab-size、word-break、word-wrap、overflow-wrap、text-align、text-align-last、text-justify、word-spacing、letter-spacing、text-indent、line-height、text-size-adjus、text-shadow、direction、writing-mode、list-style、list-style-image、list-style-position、list-style-type、table-layout、border-collapse、border-spacing、empty-cells、quotes、cursor、zoom、pointer-events</p>
+<h3 id="3-6避免链式（交集）选择符"><a href="#3-6避免链式（交集）选择符" class="headerlink" title="3.6避免链式（交集）选择符"></a>3.6避免链式（交集）选择符</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// bad</div><div class="line">.menu.left.icon &#123;..&#125;</div><div class="line"></div><div class="line">// good</div><div class="line">.menu-left-icon &#123;..&#125;</div></pre></td></tr></table></figure>
+<h3 id="3-7尽可能精简规则、尽量不要在选择符定义过多层级，层级越少，同时也降低了css和dom结构的耦合程度，提高样式的可维护性"><a href="#3-7尽可能精简规则、尽量不要在选择符定义过多层级，层级越少，同时也降低了css和dom结构的耦合程度，提高样式的可维护性" class="headerlink" title="3.7尽可能精简规则、尽量不要在选择符定义过多层级，层级越少，同时也降低了css和dom结构的耦合程度，提高样式的可维护性"></a>3.7尽可能精简规则、尽量不要在选择符定义过多层级，层级越少，同时也降低了css和dom结构的耦合程度，提高样式的可维护性</h3><p><strong>定义简洁的css规则</strong></p>
+<p>使用复合（紧凑）语法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">// bad</div><div class="line">.someclass &#123;</div><div class="line"> padding-top: 20px;</div><div class="line"> padding-bottom: 20px;</div><div class="line"> padding-left: 10px;</div><div class="line"> padding-right: 10px;</div><div class="line"> background: #000;</div><div class="line"> background-image: url(../imgs/carrot.png);</div><div class="line"> background-position: bottom;</div><div class="line"> background-repeat: repeat-x;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// good</div><div class="line">.someclass &#123;</div><div class="line"> padding: 20px 10px 20px 10px;</div><div class="line"> background: #000 url(../imgs/carrot.png) repeat-x bottom;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><em>【特别注意】</em>合理使用简写<br>你可能知道，以下两行 CSS 代码并不是等价的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">background: rebeccapurple;</div><div class="line">background-color: rebeccapurple;</div></pre></td></tr></table></figure></p>
+<p>前者是简写，它可以确保让你得到 rebeccapurple 纯色背景；但如果你用的是展开式的单个属性（background-color），那这个元素的背景最终有可能会显示为一个粉色的渐变图案、一张猫的图片、或任何东西，因为同时可能会有一条 background-image 声明在起作用。通常在使用展开式属性的写法时，会遇到这样的问题：展开式写法并不会帮助你清空所有相关的其他属性，从而可能会干扰你想要达到的效果。</p>
+<p>了解更多，请参考<a href="https://github.com/cssmagic/CSS-Secrets/issues/8" target="_blank" rel="external"> CSS 编码技巧</a></p>
+<p><strong>避免不必要的命名空间</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// bad</div><div class="line">.someclass table tr.otherclass td.somerule &#123;..&#125;</div><div class="line"></div><div class="line">//good</div><div class="line">.someclass .otherclass td.somerule &#123;..&#125;</div></pre></td></tr></table></figure>
+<p><strong>避免不必要的重复</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">// bad</div><div class="line"></div><div class="line">.someclass &#123;</div><div class="line"> color: red;</div><div class="line"> background: blue;</div><div class="line"> font-size: 15px;</div><div class="line">&#125;</div><div class="line"></div><div class="line">.otherclass &#123;</div><div class="line"> color: red;</div><div class="line"> background: blue;</div><div class="line"> font-size: 15px;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// good</div><div class="line"></div><div class="line">.someclass, .otherclass &#123;</div><div class="line"> color: red;</div><div class="line"> background: blue;</div><div class="line"> font-size: 15px;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><em>在上面规则的基础上，合并相同定义（进一步合并不同类里的重复的规则），删除无效的定义</em></p>
+<h3 id="3-8避免-important"><a href="#3-8避免-important" class="headerlink" title="3.8避免 !important"></a>3.8避免 !important</h3><p>更多关于！important请仔细阅读该篇文章<a href="http://www.zcfy.cc/article/the-importance-of-important-forcing-immutability-in-css-308.html" target="_blank" rel="external">!important 的重要性：CSS 不变性</a>。建议阅读英语版本，该篇中文翻译某些地方感觉不太恰当。仅仅在不得不使用它的时候辅助规则</p>
+<h3 id="3-9避免使用CSS表达式和滤镜"><a href="#3-9避免使用CSS表达式和滤镜" class="headerlink" title="3.9避免使用CSS表达式和滤镜"></a>3.9避免使用CSS表达式和滤镜</h3><p>使用CSS 的expression()通常会造成多次运算。实际上，需要用到CSS表达式的地方，通常能够找到其他替代方案，所以避免使用CSS表达式。</p>
+<p><em>那么什么是css expression？</em></p>
+<blockquote>
+<p>IE5及其以后版本支持在CSS中使用expression，用来把CSS属性和Javascript脚本关联起来，这里的CSS属性可以是元素固有的属性，也可以是自定义属性。就是说CSS属性后面可以是一段Javascript表达式，CSS属性的值等于Javascript表达式计算的结果。在表达式中可以直接引用元素自身的属性和方法，也可以使用其他浏览器对象。</p>
+</blockquote>
+<h3 id="3-10关于-import"><a href="#3-10关于-import" class="headerlink" title="3.10关于@import"></a>3.10关于@import</h3><p>import规则一定要先于除了@charset的其他任何CSS规则，尽可能少用该方法引进。在编写scss时如果引进文件需要合并需采用<code>@import &quot;xxx.scss&quot;</code>。</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#myDiv &#123;</div><div class="line">position: absolute;</div><div class="line">width: 100px;</div><div class="line">height: 100px;</div><div class="line">background:#c00;</div><div class="line">left: expression(document.body.offsetWidth - 180   &quot;px&quot;);//这儿</div><div class="line">top: expression(document.body.offsetHeight - -80   &quot;px&quot;);//这儿</div><div class="line">text-align:center;</div><div class="line">line-height:90px;</div><div class="line">color:#fff;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>[TOC]</p>
+<h2 id="4-CSS中的图片处理"><a href="#4-CSS中的图片处理" class="headerlink" title="4.CSS中的图片处理"></a>4.CSS中的图片处理</h2><h3 id="4-1不给图片设置不符合自身的尺寸（即缩放）"><a href="#4-1不给图片设置不符合自身的尺寸（即缩放）" class="headerlink" title="4.1不给图片设置不符合自身的尺寸（即缩放）"></a>4.1不给图片设置不符合自身的尺寸（即缩放）</h3><p><em>【解释】</em>：、同一张图片可能会在页面不同地方多次使用，比如缩略图、正常图、大图。问题来了，如果图片原始尺寸和实际需求不同，在使用过程中就会存在性能问题，利用<strong>样式缩放</strong>会带来cpu的额外计算过程，增加了图片在浏览器的渲染时间，网络传输过程也会占更多带宽，增加下载时间。因此，最佳做法是，为需要的部分单独做一套图片，初始页面加载时就能更快展示。</p>
+<h3 id="4-2使用css”雪碧图”"><a href="#4-2使用css”雪碧图”" class="headerlink" title="4.2使用css”雪碧图”"></a>4.2使用css”雪碧图”</h3><p>是将零散的图片合并成一张大图，在利用css进行背景定位。好处是减少请求数，提高了图片整体的加载速度。<br>但它也存在一些缺点：</p>
+<p>比如，多张图片合并成大图，需要精确计算，仔细的调整位置，单纯手工制作是一件很复杂的事情。（所幸现在有一些工具可以帮我们做）</p>
+<p>另外，维护过程复杂，<strong>要尽量让已有的图片保持原来的位置不变</strong>，如果是背景图的尺寸发生变化导致原有区域无法放置，那就只好放弃，如果非要在原有位置修改，则剩余的图片样式都需要修改，是很繁琐的过程。<strong>新加的图片最好放在最后面</strong>。</p>
+<p><strong>使用不当会导致性能问题，最大的问题就是内存消耗。如果制作过程不做任何的规划，随意摆放，则可能会使图片变得相当大，从而很占内存</strong>。</p>
+<p><strong>建议</strong></p>
+<ul>
+<li>雪碧图的尺寸要优化好，空白尽可能少；</li>
+<li>及时清理不再使用的图片；</li>
+<li>将雪碧图权重做分离，全局/框架级的和局部/模块级的分离开；</li>
+<li>缓存设定和更新频率匹配，如果将每天更新的雪碧图的缓存设置到一个月很容易出问题的。</li>
+</ul>
+<h3 id="4-3最佳实践"><a href="#4-3最佳实践" class="headerlink" title="4.3最佳实践"></a>4.3最佳实践</h3><p>1、在项目后期应用css sprite技术</p>
+<p>因为一般在开发过程中，会比较频繁的修改或者更换图片，如果这个时候使用sprite技术，就会增加很多开发成本。</p>
+<p>2、合理组织“雪碧”图</p>
+<p>如果要把所有的图片放在一张图上面，也会有不妥，维护方面也不会很方便。组织背景图主要按照模块和背景图的风格来划分。比如，作为展示的缩略图放在一起，评论、点赞、上下箭头等图标放在一起等。</p>
+<p>3、控制“雪碧”图的尺寸和大小</p>
+<p>因为大尺寸的图片会占用大量的内存，所以要控制在合理尺寸，推荐长宽相乘不超过2500，大小在200kb内</p>
+<p>4、合理控制背景图单元间的距离及背景图位置</p>
+<p>这个原则是为了防止在背景图比元素大小更小的时候，区域出现别的无关背景图</p>
+<p>5、借助相关工具处理sprite</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/qr-wechat.png" alt="阿杜 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/qr-alipay.png" alt="阿杜 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/高性能-CSS/" rel="tag">#高性能 CSS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/16/重构/" rel="prev" title="重构">
+                重构 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/16/编写可维护高质量的HTML和CSS代码/"
+           data-title="编写高性能的CSS代码" data-url="http://adukingc.com/2016/10/16/编写可维护高质量的HTML和CSS代码/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="阿杜" />
+          <p class="site-author-name" itemprop="name">阿杜</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/HappyAdu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/Leonard_Aduking" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5341330364" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/a-du-89-4" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-zhihu"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://boyuanblog.com/" title="张博元的博客" target="_blank">张博元的博客</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS代码重构的目的："><span class="nav-number">1.</span> <span class="nav-text">CSS代码重构的目的：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能优化"><span class="nav-number">2.</span> <span class="nav-text">性能优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-CSS选择器"><span class="nav-number"></span> <span class="nav-text">1.CSS选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1组合选择器"><span class="nav-number">1.</span> <span class="nav-text">1.1组合选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2关键选择器"><span class="nav-number">2.</span> <span class="nav-text">1.2关键选择器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-样式系统工作原理"><span class="nav-number"></span> <span class="nav-text">2.样式系统工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1样式系统如何拆分规则"><span class="nav-number">1.</span> <span class="nav-text">2.1样式系统如何拆分规则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ID规则"><span class="nav-number">1.1.</span> <span class="nav-text">ID规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#class规则"><span class="nav-number">1.2.</span> <span class="nav-text">class规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标签规则"><span class="nav-number">1.3.</span> <span class="nav-text">标签规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通用规则"><span class="nav-number">1.4.</span> <span class="nav-text">通用规则</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2样式系统如何匹配规则"><span class="nav-number">2.</span> <span class="nav-text">2.2样式系统如何匹配规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-高效的CSS代码编写"><span class="nav-number"></span> <span class="nav-text">3.高效的CSS代码编写</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1避免使用通用规则和单个属性选择器作为关键选择器"><span class="nav-number">1.</span> <span class="nav-text">3.1避免使用通用规则和单个属性选择器作为关键选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2避免过度约束"><span class="nav-number">2.</span> <span class="nav-text">3.2避免过度约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3避免后代选择器"><span class="nav-number">3.</span> <span class="nav-text">3.3避免后代选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4标签分类的规则不要包含子选择器"><span class="nav-number">4.</span> <span class="nav-text">3.4标签分类的规则不要包含子选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5了解依赖继承，减少代码量"><span class="nav-number">5.</span> <span class="nav-text">3.5了解依赖继承，减少代码量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6避免链式（交集）选择符"><span class="nav-number">6.</span> <span class="nav-text">3.6避免链式（交集）选择符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7尽可能精简规则、尽量不要在选择符定义过多层级，层级越少，同时也降低了css和dom结构的耦合程度，提高样式的可维护性"><span class="nav-number">7.</span> <span class="nav-text">3.7尽可能精简规则、尽量不要在选择符定义过多层级，层级越少，同时也降低了css和dom结构的耦合程度，提高样式的可维护性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8避免-important"><span class="nav-number">8.</span> <span class="nav-text">3.8避免 !important</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-9避免使用CSS表达式和滤镜"><span class="nav-number">9.</span> <span class="nav-text">3.9避免使用CSS表达式和滤镜</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-10关于-import"><span class="nav-number">10.</span> <span class="nav-text">3.10关于@import</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-CSS中的图片处理"><span class="nav-number"></span> <span class="nav-text">4.CSS中的图片处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1不给图片设置不符合自身的尺寸（即缩放）"><span class="nav-number">1.</span> <span class="nav-text">4.1不给图片设置不符合自身的尺寸（即缩放）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2使用css”雪碧图”"><span class="nav-number">2.</span> <span class="nav-text">4.2使用css”雪碧图”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3最佳实践"><span class="nav-number">3.</span> <span class="nav-text">4.3最佳实践</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿杜</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"knox"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = false;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title >= 0 || index_content >= 0 ){
+                                isMatch = true;
+								if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            } 
+							
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("8nAYsy2H0OYidbIYd6f8fbwH-gzGzoHsz", "DLe9N3lcmHHmtqG7kyifxVrf");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>

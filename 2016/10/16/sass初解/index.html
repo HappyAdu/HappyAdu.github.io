@@ -1,0 +1,1036 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="sass," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/imgs/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="SASS有两种后缀文件：一种后缀名为sass，不适用大括号和分号；另一种是scss文件，这种和我们平时写的css文件格式相差不大，使用大括号和分号。本篇文章讲解主要为scss，建议使用后缀名为scss的文件。12345678//文件后缀名为scss的语法body&amp;#123;    background：#eee;    font-size:12px;    p&amp;#123;        backg">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sass初解">
+<meta property="og:url" content="http://adukingc.com/2016/10/16/sass初解/index.html">
+<meta property="og:site_name" content="阿杜">
+<meta property="og:description" content="SASS有两种后缀文件：一种后缀名为sass，不适用大括号和分号；另一种是scss文件，这种和我们平时写的css文件格式相差不大，使用大括号和分号。本篇文章讲解主要为scss，建议使用后缀名为scss的文件。12345678//文件后缀名为scss的语法body&amp;#123;    background：#eee;    font-size:12px;    p&amp;#123;        backg">
+<meta property="og:updated_time" content="2016-10-16T02:36:59.781Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sass初解">
+<meta name="twitter:description" content="SASS有两种后缀文件：一种后缀名为sass，不适用大括号和分号；另一种是scss文件，这种和我们平时写的css文件格式相差不大，使用大括号和分号。本篇文章讲解主要为scss，建议使用后缀名为scss的文件。12345678//文件后缀名为scss的语法body&amp;#123;    background：#eee;    font-size:12px;    p&amp;#123;        backg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://adukingc.com/2016/10/16/sass初解/"/>
+
+
+  <title> sass初解 | 阿杜 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?knox";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">阿杜</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">stay hungry，stay foolish！</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                sass初解
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-16T10:35:36+08:00" content="2016-10-16">
+              2016-10-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/16/sass初解/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/16/sass初解/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/10/16/sass初解/" class="leancloud_visitors" data-flag-title="sass初解">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>SASS有两种后缀文件：一种后缀名为sass，不适用大括号和分号；另一种是scss文件，这种和我们平时写的css文件格式相差不大，使用大括号和分号。本篇文章讲解主要为scss，建议使用后缀名为scss的文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//文件后缀名为scss的语法</div><div class="line">body&#123;</div><div class="line">    background：#eee;</div><div class="line">    font-size:12px;</div><div class="line">    p&#123;</div><div class="line">        background:#145156;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>###导入<br>SASS导入（@import）规则和css有所不同，编译时会将@import的scss文件合并。但是如果导入css后缀名文件就和普通css导入无差别。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">//a.scss</div><div class="line">//----------------------------</div><div class="line">body&#123;</div><div class="line">    font-size:16px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>需导入样式的sass文件b.scss<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@import &quot;reset.css&quot;;</div><div class="line">@import &quot;a&quot;;</div><div class="line">p&#123;</div><div class="line">    font-size:12px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>编译出的css：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">@import &quot;reset.css&quot;;</div><div class="line">body&#123;</div><div class="line">    font-size:16px;</div><div class="line">&#125;</div><div class="line">p&#123;</div><div class="line">    font-size:12px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<hr>
+<p>###注释<br>sass有两种注释方式，一种是标准的css注释样式<code>/**/</code>，另一种是双斜杠形式的单行注释（不会转译到css中）。</p>
+<hr>
+<p>###变量<br>SASS的变量必须是$开头，后面紧跟变量名，而变量值和变量名之间需使用冒号（：）分隔开，如果值后面跟上 <code>！default</code>则表示默认值。<br><strong>普通变量</strong><br>定义之后可以在全局范围内使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">//sass style</div><div class="line">//----------------------</div><div class="line">$fontSize: 12px;</div><div class="line">body&#123;</div><div class="line">    font-size:$fontSize;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//css style</div><div class="line">//-----------------------</div><div class="line">body&#123;</div><div class="line">    font-size:12px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>默认变量</strong><br>sass的默认变量一般是用来设置默认值，然后根据需求来覆盖，覆盖的方式是在默认变量之前重新声明下变量即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">//sass style</div><div class="line">//-------------------------------</div><div class="line">$baseLineHeight:        2;</div><div class="line">$baseLineHeight:        1.5 !default;</div><div class="line">body&#123;</div><div class="line">    line-height: $baseLineHeight; </div><div class="line">&#125;</div><div class="line"></div><div class="line">//css style</div><div class="line">//-------------------------------</div><div class="line">body&#123;</div><div class="line">    line-height:2;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><em>在这里默认值被覆盖，并作用于全局。接下来，看一看选择器中定义局部变量和全局变量测试</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">//覆写default</div><div class="line">$fontSize:16px;</div><div class="line">//定义默认样式</div><div class="line">$fontSize:12px !default;</div><div class="line"></div><div class="line">//覆写测试</div><div class="line">ul&#123;</div><div class="line"> font-size:$fontSize;//16px</div><div class="line">&#125;</div><div class="line">//局部覆写测试&amp;&amp;选择器中定义局部变量测试</div><div class="line">li&#123;</div><div class="line">    $fontSize: 18px;</div><div class="line">    font-size:$fontSize;//18px</div><div class="line">&#125;</div><div class="line">a&#123;</div><div class="line">    font-size:$fontSize;//16px</div><div class="line">&#125;</div><div class="line">//选择器中定义全局变量测试</div><div class="line">.demo2&#123;</div><div class="line">    $fontSize: 20px !global;</div><div class="line">    font-size:$fontSize;//20px</div><div class="line">&#125;</div><div class="line">.deom3&#123;</div><div class="line">    font-size:$fontSize;//20px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>总结：scss实际上就是一个编程语言，有它的作用域，函数和变量。在全局定义的可在全局使用，在局部定义的局部变量只能在局部使用，定义加上<code>！global</code> 或者<code>！default</code>便可以在其他选择器作用域中使用。</p>
+<hr>
+<p><strong>特殊变量</strong><br>一般定义的变量都为属性值，可直接使用。但如果变量作为<code>属性</code>或在某些特殊情况下等则必须要以#{$variables}形式使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">//sass style</div><div class="line">//-------------------------------</div><div class="line">$borderDirection:       top !default; </div><div class="line">$baseFontSize:          12px !default;</div><div class="line">$baseLineHeight:        1.5 !default;</div><div class="line"></div><div class="line">//应用于class和属性</div><div class="line">.border-#&#123;$borderDirection&#125;&#123;</div><div class="line">  border-#&#123;$borderDirection&#125;:1px solid #ccc;</div><div class="line">&#125;</div><div class="line">//应用于复杂的属性值</div><div class="line">body&#123;</div><div class="line">    font:#&#123;$baseFontSize&#125;/#&#123;$baseLineHeight&#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//css style</div><div class="line">//-------------------------------</div><div class="line">.border-top&#123;</div><div class="line">  border-top:1px solid #ccc;</div><div class="line">&#125;</div><div class="line">body &#123;</div><div class="line">  font: 12px/1.5;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<hr>
+<p><strong>多值变量</strong></p>
+<blockquote>
+<p>多值变量分为list类型和map类型，简单说list类型有点像js中的数组，而map类型有点像js中对象。</p>
+</blockquote>
+<p><strong><em>list</em></strong></p>
+<blockquote>
+<p>list数据可通过空格，逗号或者小括号分隔多个值。可用nth($var,$index)取值。关于list数据操作还有很多其他函数如length($list)，join($list1,$list2,[$separator])，append($list,$value,[$separator])等，具体可参考<a href="http://sass-lang.com/documentation/Sass/Script/Functions.html" target="_blank" rel="external">sass Functions</a>（搜索List Functions即可）。<br><em>定义</em><br><figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//一维数据</span></div><div class="line"><span class="variable">$px</span>: <span class="number">5px</span> <span class="number">10px</span> <span class="number">20px</span> <span class="number">30px</span>;</div><div class="line"></div><div class="line"><span class="comment">//二维数据，相当于js中的二维数组</span></div><div class="line"><span class="variable">$px</span>: <span class="number">5px</span> <span class="number">10px</span>, <span class="number">20px</span> <span class="number">30px</span>;</div><div class="line"><span class="variable">$px</span>: (<span class="number">5px</span> <span class="number">10px</span>) (<span class="number">20px</span> <span class="number">30px</span>);</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p><em>使用</em><br><figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//sass style</span></div><div class="line"><span class="comment">//-------------------------------</span></div><div class="line"><span class="variable">$linkColor</span>:         <span class="number">#08c</span> <span class="number">#333</span> !default;<span class="comment">//第一个值为默认值，第二个鼠标滑过值</span></div><div class="line"><span class="selector-tag">a</span>&#123;</div><div class="line">  <span class="attribute">color</span>:nth(<span class="variable">$linkColor</span>,<span class="number">1</span>);</div><div class="line"></div><div class="line">  &amp;:hover&#123;</div><div class="line">    <span class="attribute">color</span>:nth(<span class="variable">$linkColor</span>,<span class="number">2</span>);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//css style</span></div><div class="line"><span class="comment">//-------------------------------</span></div><div class="line"><span class="selector-tag">a</span>&#123;</div><div class="line">  <span class="attribute">color</span>:<span class="number">#08c</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-tag">a</span>:hover&#123;</div><div class="line">  <span class="attribute">color</span>:<span class="number">#333</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong><em>map</em></strong></p>
+<blockquote>
+<p>map数据以key和value成对出现，其中value又可以是list。格式为：$map: (key1: value1, key2: value2, key3: value3);。可通过map-get($map,$key)取值。关于map数据还有很多其他函数如map-merge($map1,$map2)，map-keys($map)，map-values($map)等，具体可参考<a href="http://sass-lang.com/documentation/Sass/Script/Functions.html" target="_blank" rel="external">sass Functions</a>（搜索List Functions即可）。</p>
+</blockquote>
+<hr>
+<h3 id="嵌套"><a href="#嵌套" class="headerlink" title="嵌套"></a>嵌套</h3><blockquote>
+<p>所谓选择器嵌套指的是在一个选择器中嵌套另一个选择器来实现继承，从而增强了sass文件的结构性和可读性。在选择器嵌套中，可以使用&amp;表示父元素选择器.</p>
+</blockquote>
+<p><strong>选择器嵌套</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">//sass style</div><div class="line">//-------------------------------</div><div class="line">#top_nav&#123;</div><div class="line">  line-height: 40px;</div><div class="line">  text-transform: capitalize;</div><div class="line">  background-color:#333;</div><div class="line">  li&#123;</div><div class="line">    float:left;</div><div class="line">  &#125;</div><div class="line">  a&#123;</div><div class="line">    display: block;</div><div class="line">    padding: 0 10px;</div><div class="line">    color: #fff;</div><div class="line"></div><div class="line">    &amp;:hover&#123;</div><div class="line">      color:#ddd;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//css style</div><div class="line">//-------------------------------</div><div class="line">#top_nav&#123;</div><div class="line">  line-height: 40px;</div><div class="line">  text-transform: capitalize;</div><div class="line">  background-color:#333;</div><div class="line">&#125;  </div><div class="line">#top_nav li&#123;</div><div class="line">  float:left;</div><div class="line">&#125;</div><div class="line">#top_nav a&#123;</div><div class="line">  display: block;</div><div class="line">  padding: 0 10px;</div><div class="line">  color: #fff;</div><div class="line">&#125;</div><div class="line">#top_nav a:hover&#123;</div><div class="line">  color:#ddd;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>属性嵌套</strong></p>
+<blockquote>
+<p>所谓属性嵌套指的是有些属性拥有同一个开始单词，如border-width，border-color都是以border开头。拿个官网的实例看下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">/sass style</div><div class="line">//-------------------------------</div><div class="line">.fakeshadow &#123;</div><div class="line">  border: &#123;</div><div class="line">    style: solid;</div><div class="line">    left: &#123;</div><div class="line">      width: 4px;</div><div class="line">      color: #888;</div><div class="line">    &#125;</div><div class="line">    right: &#123;</div><div class="line">      width: 2px;</div><div class="line">      color: #ccc;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//css style</div><div class="line">//-------------------------------</div><div class="line">.fakeshadow &#123;</div><div class="line">  border-style: solid;</div><div class="line">  border-left-width: 4px;</div><div class="line">  border-left-color: #888;</div><div class="line">  border-right-width: 2px;</div><div class="line">  border-right-color: #ccc; </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>###@-root</p>
+<blockquote>
+<p>sass3.3.0中新增的功能，用来跳出选择器嵌套的。默认所有的嵌套，继承所有上级选择器，但有了这个就可以跳出所有上级选择器。</p>
+</blockquote>
+<p><strong>普通跳出</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line">//sass style</div><div class="line">//-------------------------------</div><div class="line">//没有跳出</div><div class="line">.parent-1 &#123;</div><div class="line">  color:#f00;</div><div class="line">  .child &#123;</div><div class="line">    width:100px;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//单个选择器跳出</div><div class="line">.parent-2 &#123;</div><div class="line">  color:#f00;</div><div class="line">  @at-root .child &#123;</div><div class="line">    width:200px;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//多个选择器跳出</div><div class="line">.parent-3 &#123;</div><div class="line">  background:#f00;</div><div class="line">  @at-root &#123;</div><div class="line">    .child1 &#123;</div><div class="line">      width:300px;</div><div class="line">    &#125;</div><div class="line">    .child2 &#123;</div><div class="line">      width:400px;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//css style</div><div class="line">//-------------------------------</div><div class="line">.parent-1 &#123;</div><div class="line">  color: #f00;</div><div class="line">&#125;</div><div class="line">.parent-1 .child &#123;</div><div class="line">  width: 100px;</div><div class="line">&#125;</div><div class="line"></div><div class="line">.parent-2 &#123;</div><div class="line">  color: #f00;</div><div class="line">&#125;</div><div class="line">.child &#123;</div><div class="line">  width: 200px;</div><div class="line">&#125;</div><div class="line"></div><div class="line">.parent-3 &#123;</div><div class="line">  background: #f00;</div><div class="line">&#125;</div><div class="line">.child1 &#123;</div><div class="line">  width: 300px;</div><div class="line">&#125;</div><div class="line">.child2 &#123;</div><div class="line">  width: 400px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<hr>
+<p><strong>@at-root (without: …)和@at-root (with: …)</strong></p>
+<blockquote>
+<p>默认@at-root只会跳出选择器嵌套，而不能跳出@media或@support，如果要跳出这两种，则需使用@at-root (without: media)，@at-root (without: support)。这个语法的关键词有四个：all（表示所有），rule（表示常规css），media（表示media），support。我们默认的@at-root其实就是@at-root (without:rule)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line">/sass style</div><div class="line">//-------------------------------</div><div class="line">//跳出父级元素嵌套</div><div class="line">@media print &#123;</div><div class="line">    .parent1&#123;</div><div class="line">      color:#f00;</div><div class="line">      @at-root .child1 &#123;</div><div class="line">        width:200px;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//跳出media嵌套，父级有效</div><div class="line">@media print &#123;</div><div class="line">  .parent2&#123;</div><div class="line">    color:#f00;</div><div class="line"></div><div class="line">    @at-root (without: media) &#123;</div><div class="line">      .child2 &#123;</div><div class="line">        width:200px;</div><div class="line">      &#125; </div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//跳出media和父级</div><div class="line">@media print &#123;</div><div class="line">  .parent3&#123;</div><div class="line">    color:#f00;</div><div class="line"></div><div class="line">    @at-root (without: all) &#123;</div><div class="line">      .child3 &#123;</div><div class="line">        width:200px;</div><div class="line">      &#125; </div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//sass style</div><div class="line">//-------------------------------</div><div class="line">@media print &#123;</div><div class="line">  .parent1 &#123;</div><div class="line">    color: #f00;</div><div class="line">  &#125;</div><div class="line">  .child1 &#123;</div><div class="line">    width: 200px;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@media print &#123;</div><div class="line">  .parent2 &#123;</div><div class="line">    color: #f00;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">.parent2 .child2 &#123;</div><div class="line">  width: 200px;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@media print &#123;</div><div class="line">  .parent3 &#123;</div><div class="line">    color: #f00;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">.child3 &#123;</div><div class="line">  width: 200px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p><strong>@at-root与&amp;配合使用</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">//sass style</div><div class="line">//-------------------------------</div><div class="line">.child&#123;</div><div class="line">    @at-root .parent &amp;&#123;</div><div class="line">        color:#f00;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//css style</div><div class="line">//-------------------------------</div><div class="line">.parent .child &#123;</div><div class="line">  color: #f00;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="混合（mixin）"><a href="#混合（mixin）" class="headerlink" title="混合（mixin）"></a>混合（mixin）</h3><blockquote>
+<p>sass中使用@mixin声明混合，可以传递参数，参数名以$符号开始，多个参数以逗号分开，也可以给参数设置默认值。声明的@mixin通过@include来调用。</p>
+<h2 id="无参数mixin"><a href="#无参数mixin" class="headerlink" title="无参数mixin"></a>无参数mixin</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">/sass style</div><div class="line">//-------------------------------</div><div class="line">@mixin center-block &#123;</div><div class="line">    margin-left:auto;</div><div class="line">    margin-right:auto;</div><div class="line">&#125;</div><div class="line">.demo&#123;</div><div class="line">    @include center-block;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//css style</div><div class="line">//-------------------------------</div><div class="line">.demo&#123;</div><div class="line">    margin-left:auto;</div><div class="line">    margin-right:auto;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="有参数mixin"><a href="#有参数mixin" class="headerlink" title="有参数mixin"></a>有参数mixin</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">/sass style</div><div class="line">//-------------------------------   </div><div class="line">@mixin opacity($opacity:50) &#123;</div><div class="line">  opacity: $opacity / 100;</div><div class="line">  filter: alpha(opacity=$opacity);</div><div class="line">&#125;</div><div class="line"></div><div class="line">//css style</div><div class="line">//-------------------------------</div><div class="line">.opacity&#123;</div><div class="line">  @include opacity; //参数使用默认值</div><div class="line">&#125;</div><div class="line">.opacity-80&#123;</div><div class="line">  @include opacity(80); //传递参数</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>更多用法请参考<a href="http://www.w3cplus.com/sassguide/syntax.html" target="_blank" rel="external">Sass</a></p>
+<hr>
+<p>###继承</p>
+<blockquote>
+<p>ass中，选择器继承可以让选择器继承另一个选择器的所有样式，并联合声明。使用选择器的继承，要使用关键词@extend，后面紧跟需要继承的选择器。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">//sass style</div><div class="line">//-------------------------------</div><div class="line">h1&#123;</div><div class="line">  border: 4px solid #ff9aa9;</div><div class="line">&#125;</div><div class="line">.speaker&#123;</div><div class="line">  @extend h1;</div><div class="line">  border-width: 2px;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//css style</div><div class="line">//-------------------------------</div><div class="line">h1,.speaker&#123;</div><div class="line">  border: 4px solid #ff9aa9;</div><div class="line">&#125;</div><div class="line">.speaker&#123;</div><div class="line">  border-width: 2px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p><strong>占位符</strong></p>
+<blockquote>
+<p>sass 3.2.0以后就可以定义占位选择器%。这种选择器的优势在于：如果不调用则不会有任何多余的css文件，避免了以前在一些基础的文件中预定义了很多基础的样式，然后实际应用中不管是否使用了@extend去继承相应的样式，都会解析出来所有的样式。占位选择器以%标识定义，通过@extend调用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">//sass style</div><div class="line">//-------------------------------</div><div class="line">%ir&#123;</div><div class="line">  color: transparent;</div><div class="line">  text-shadow: none;</div><div class="line">  background-color: transparent;</div><div class="line">  border: 0;</div><div class="line">&#125;</div><div class="line">%clearfix&#123;</div><div class="line">  @if $lte7 &#123;</div><div class="line">    *zoom: 1;</div><div class="line">  &#125;</div><div class="line">  &amp;:before,</div><div class="line">  &amp;:after &#123;</div><div class="line">    content: &quot;&quot;;</div><div class="line">    display: table;</div><div class="line">    font: 0/0 a;</div><div class="line">  &#125;</div><div class="line">  &amp;:after &#123;</div><div class="line">    clear: both;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">#header&#123;</div><div class="line">  h1&#123;</div><div class="line">    @extend %ir;</div><div class="line">    width:300px;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">.ir&#123;</div><div class="line">  @extend %ir;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//css style</div><div class="line">//-------------------------------</div><div class="line">#header h1,</div><div class="line">.ir&#123;</div><div class="line">  color: transparent;</div><div class="line">  text-shadow: none;</div><div class="line">  background-color: transparent;</div><div class="line">  border: 0;</div><div class="line">&#125;</div><div class="line">#header h1&#123;</div><div class="line">  width:300px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>基本运用到这，关于函数以及其他可以参考<a href="http://www.w3cplus.com/sassguide/syntax.html" target="_blank" rel="external">SASS</a>。</p>
+<p>###制定SCSS规范<br>1、所有导入文件以 _ 开头<br>2、可覆盖变量定义时加上 !default<br>3、变量及@function采用驼峰式命名<br>4、@mixin，%采用中划线命名<br>5、@mixin中参数有默认值的放在没有默认值前面<br>6、模块文件的变量在模块文件头部申明<br>7、如需@extend，请先设计成%</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/qr-wechat.png" alt="阿杜 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/qr-alipay.png" alt="阿杜 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/sass/" rel="tag">#sass</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/16/探究CSS3动画：transform-transition-animation/" rel="next" title="探究CSS3动画：transform/transition/animation">
+                <i class="fa fa-chevron-left"></i> 探究CSS3动画：transform/transition/animation
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/03/jQuery性能优化/" rel="prev" title="jQuery性能优化">
+                jQuery性能优化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/16/sass初解/"
+           data-title="sass初解" data-url="http://adukingc.com/2016/10/16/sass初解/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="阿杜" />
+          <p class="site-author-name" itemprop="name">阿杜</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/HappyAdu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/Leonard_Aduking" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5341330364" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/a-du-89-4" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-zhihu"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://boyuanblog.com/" title="张博元的博客" target="_blank">张博元的博客</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#嵌套"><span class="nav-number">1.</span> <span class="nav-text">嵌套</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#混合（mixin）"><span class="nav-number">2.</span> <span class="nav-text">混合（mixin）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#无参数mixin"><span class="nav-number"></span> <span class="nav-text">无参数mixin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有参数mixin"><span class="nav-number"></span> <span class="nav-text">有参数mixin</span></a></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿杜</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"knox"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = false;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title >= 0 || index_content >= 0 ){
+                                isMatch = true;
+								if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            } 
+							
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("8nAYsy2H0OYidbIYd6f8fbwH-gzGzoHsz", "DLe9N3lcmHHmtqG7kyifxVrf");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>

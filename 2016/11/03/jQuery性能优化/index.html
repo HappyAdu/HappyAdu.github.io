@@ -1,0 +1,1004 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="js 高性能," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/imgs/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="&amp;emsp;&amp;emsp;对于前端初学者而言，学习jQuery是必须经过的一步，毕竟这门相对老牌的js库许多的项目现在仍在使用。一是这门语言容易上手，且几乎人人都会，可以减少团队成员的学习成本（人人都会），一是这个库的确也提供了大量可靠的插件扩展，能提高我们的开发效率。那么如何什么样的jQuery代码性能最佳？就我个人观点是，尽量减少DOM操作，尤其是那些可能会引起页面重绘的操作是最佳实践不可或缺的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jQuery性能优化">
+<meta property="og:url" content="http://adukingc.com/2016/11/03/jQuery性能优化/index.html">
+<meta property="og:site_name" content="阿杜">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;对于前端初学者而言，学习jQuery是必须经过的一步，毕竟这门相对老牌的js库许多的项目现在仍在使用。一是这门语言容易上手，且几乎人人都会，可以减少团队成员的学习成本（人人都会），一是这个库的确也提供了大量可靠的插件扩展，能提高我们的开发效率。那么如何什么样的jQuery代码性能最佳？就我个人观点是，尽量减少DOM操作，尤其是那些可能会引起页面重绘的操作是最佳实践不可或缺的">
+<meta property="og:updated_time" content="2016-11-02T16:27:54.474Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jQuery性能优化">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;对于前端初学者而言，学习jQuery是必须经过的一步，毕竟这门相对老牌的js库许多的项目现在仍在使用。一是这门语言容易上手，且几乎人人都会，可以减少团队成员的学习成本（人人都会），一是这个库的确也提供了大量可靠的插件扩展，能提高我们的开发效率。那么如何什么样的jQuery代码性能最佳？就我个人观点是，尽量减少DOM操作，尤其是那些可能会引起页面重绘的操作是最佳实践不可或缺的">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://adukingc.com/2016/11/03/jQuery性能优化/"/>
+
+
+  <title> jQuery性能优化 | 阿杜 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?knox";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">阿杜</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">stay hungry，stay foolish！</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                jQuery性能优化
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-03T00:25:23+08:00" content="2016-11-03">
+              2016-11-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/03/jQuery性能优化/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/03/jQuery性能优化/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/11/03/jQuery性能优化/" class="leancloud_visitors" data-flag-title="jQuery性能优化">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&emsp;&emsp;对于前端初学者而言，学习jQuery是必须经过的一步，毕竟这门相对老牌的js库许多的项目现在仍在使用。一是这门语言容易上手，且几乎人人都会，可以减少团队成员的学习成本（人人都会），一是这个库的确也提供了大量可靠的插件扩展，能提高我们的开发效率。那么如何什么样的jQuery代码性能最佳？就我个人观点是，尽量减少DOM操作，尤其是那些可能会引起页面重绘的操作是最佳实践不可或缺的一项法则。其次，便也是减少全局对象的直接引用了。</p>
+<p>那么，具体细节，客观随我一观：</p>
+<p> <strong>1.使用性能较优的选择器</strong><br>&emsp;&emsp;和原生JS想比，jQuery取对象的方式简单易学，但是什么样的选择器更快呢？曾经的一段时间我一度以为是id,但后来看了些博客后我知道我是错了。在JQuery中 选择器性能排序是这样的： id &emsp;&gt;&emsp; 标签选择器&emsp; &gt; &emsp;属性选择器 &gt; \$(“:hidden”)等伪选择器。<em>建议尽可能使用id选择器，标签选择器作为第二优先选择</em>，有选择的使用类。尽可能避免使用后续方法选择。<br><strong>2.将对象缓存</strong><br>&emsp;&emsp;最好使用局部变量缓存DOM和选择器获得的jquery对象，以免每一次操作又会重新遍历节点查找DOM返回动漫对象或者创建jquery对象，这会浪费很多的性能。示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//bad</div><div class="line">$(&quot;#traffic input&quot;).bind(&quot;click&quot;,function()&#123;....&#125;);</div><div class="line">$(&quot;#traffic input&quot;).css(&quot;background-color&quot;,&quot;red&quot;);</div><div class="line">$(&quot;#traffic input&quot;).fadeIn(&quot;slow&quot;);</div><div class="line">//good</div><div class="line">var $active_light = $(&quot;#traffic input&quot;);</div><div class="line">$active_light.bind(&quot;click&quot;,function()&#123;....&#125;);</div><div class="line">$active_light.css(&quot;background-color&quot;,&quot;red&quot;);</div><div class="line">$active_light.fadeIn(&quot;slow&quot;);</div></pre></td></tr></table></figure></p>
+<p>当然最好使用jquery的链式方式是使代码更加整洁，不要让相同的选择器在你的代码中出现多次。<br><strong>3.减少循环时的DOM操作</strong><br>在循环时要尽可能的减少DOM操作，在for，each等中循环时优化的一大策略就是减少工作量。比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">// bad </div><div class="line">for(i = 0; i &lt; a.length; i++)&#123;</div><div class="line">    var $mylist = $(&quot;#mylist&quot;);</div><div class="line">    $mylist.append(&quot;this is list item&quot; + i);</div><div class="line">&#125;</div><div class="line">// good</div><div class="line">var $mylist = $(&quot;#mylist&quot;);</div><div class="line">var list = &quot;&quot;;</div><div class="line">for(i = 0,len = a.length; i &lt; len; i++)&#123;</div><div class="line">    list += &quot;this is list item&quot; + i;</div><div class="line">&#125;</div><div class="line">$mylist.append(list);</div></pre></td></tr></table></figure></p>
+<p>看出什么没有呢？改过后的例子是不是减少了很多DOM操作，这无疑减少了我们循环遍历时的DOM操作量，大大优化了我们的性能。<br><strong>4.以数组方式使用jQuery对象</strong><br>使用jQuery选择器获取结果是一个jQuery对象，然而jQuery类库会让你感觉你正在使用一个定义了索引和长度的数组，所以检查长度也是一个检查jQuery对象是否存在的方式。在性能方面，使用for或者while循环处理比\$.each()更快，可以使用for或者while循环替代$.each()：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$.each(array,function()&#123;</div><div class="line">    array[i] = i;</div><div class="line">&#125;)</div><div class="line">或者</div><div class="line">for（i = 0,len = array.length; i &lt; len; i++）&#123;</div><div class="line">    array[i] = i; </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>5.使用事件代理</strong><br>&emsp;&emsp;利用事件冒泡，我么可以方便的给多个元素调用一个相同的函数。比如，我们要为一个表格绑定这样的行为：点击td后，背景设置为红色，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;# mytable td&quot;).click(function()&#123;</div><div class="line">    $(this).css(&quot;background&quot;,&quot;red&quot;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>这样的代码在有很多个td时会为每一个td都绑定这个函数，无疑的会带来性能影响，所以使用事件冒泡的原理向父节点绑定一个事件，通过event.target获取当前点击的元素更好。代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$(&quot;# mytable&quot;).click(function(e)&#123;</div><div class="line">    var $clicked = $(e.targent); // 捕捉到出发的目标元素</div><div class="line">    $clicked.css(&quot;background&quot;,&quot;red&quot;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>在改进方式中，只为一个元素添加一个事件。显然，性能更好。在jQuery1.7中提供了一个新的方式on（），将帮助我们将整个事件监听封装到一个便利方法中。如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;#mytable&quot;).on(&quot;click&quot;,&quot;td&quot;,function()&#123;</div><div class="line">    $(this).css(&quot;background&quot;,&quot;red&quot;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p><strong>6.将重用代码尽可能转化为jQuery插件</strong><br>创建一个插件方式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">（function（$）&#123;</div><div class="line"></div><div class="line">    $.fn.pluginNmae = function()&#123;</div><div class="line">     // code</div><div class="line">     return this; // 返回方便链式操作</div><div class="line">    &#125;</div><div class="line">&#125;(jQuery)）</div></pre></td></tr></table></figure></p>
+<p><strong>7.使用join（）来拼接字符串</strong><br><strong>8。合理利用HTML5的Data属性</strong><br>HTML5的data属性可以帮助我们插入数据，特别是前后端的数据交换。jQuery的data（）方法可以有效利用这一特性来获得数据，比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;dl&quot; data-role=&quot;page&quot;&gt;&lt;/div&gt;</div><div class="line">// 获取数据</div><div class="line">$(&quot;#dl&quot;).data(&quot;role&quot;); // &quot;page&quot;</div></pre></td></tr></table></figure></p>
+<p><strong>9.尽可能使用原生的js方式</strong><br>不得不说，方法的选择很重要。原生的性能更好。比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">var $cr = $(&quot;#cr&quot;);</div><div class="line">$cr.click(function()&#123;</div><div class="line">    if($cr.is(&quot;:checked&quot;))&#123;</div><div class="line">        alert(&quot;.....&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line">// 原生的js</div><div class="line">var $cr = $(&quot;#cr&quot;);</div><div class="line">var cr = $cr[0];</div><div class="line">$cr.click(function()&#123;</div><div class="line">    if(cr.checked)&#123;</div><div class="line">        alert(&quot;.....&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>毋庸置疑，这里原生的js性能更好，因为没有拐弯抹角的调用许多函数。<br>还有很多类似的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">比如$(this).css(&quot;color&quot;,&quot;red&quot;)----可替换为this.style.color=&quot;red&quot;;</div><div class="line">$(&quot;&lt;p&gt;&lt;/p&gt;&quot;)-----------document.creatElement（&quot;p&quot;）;等等</div></pre></td></tr></table></figure></p>
+<p>经验告诉我们，有时候根本不需要jQuery<br><strong>10.使用链式写法</strong><br>jQuery的一大特点，就是允许使用链式写法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&apos;div&apos;).find(&apos;h3&apos;).eq(2).html(&apos;Hello&apos;);</div></pre></td></tr></table></figure></p>
+<p>采用链式写法时，jQuery自动缓存每一步的结果，因此比非链式写法要快。根据测试，链式写法比（不使用缓存的）非链式写法，大约快了25%。<br><strong>11.减少DOM操作</strong><br>（1）改动DOM结构开销很大，因此不要频繁使用.append()、.insertBefore()和.insetAfter()这样的方法。<br>如果要插入多个元素，就先把它们合并，然后再一次性插入。根据测试，合并插入比不合并插入，快了将近10倍。<br>（2）如果你要对一个DOM元素进行大量处理，应该先用.detach()方法，把这个元素从DOM中取出来，处理完毕以后，再重新插回文档。根据测试，使用.detach()方法比不使用时，快了60%。<br>（3）如果你要在DOM元素上储存数据，不要写成下面这样：<br>　<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">　　var elem = $(&apos;#elem&apos;);</div><div class="line">　　elem.data(key,value);</div></pre></td></tr></table></figure></p>
+<p>　<br>而要写成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">　　var elem = $(&apos;#elem&apos;);</div><div class="line">　　$.data(elem[0],key,value);</div></pre></td></tr></table></figure>
+<p>根据测试，后一种写法要比前一种写法，快了将近10倍。因为elem.data()方法是定义在jQuery函数的prototype对象上面的，而$.data()方法是定义jQuery函数上面的，调用的时候不从复杂的jQuery对象上调用，所以速度快得多。（此处可以参阅下面第10点。）<br>（4）插入html代码的时候，浏览器原生的innterHTML()方法比jQuery对象的html()更快。<br><strong>12、尽量少生成Jquery对象</strong><br>每当你使用一次选择器（比如$(‘#id’)），就会生成一个jQuery对象。jQuery对象是一个很庞大的对象，带有很多属性和方法，会占用不少资源。所以，尽量少生成jQuery对象。<br>举例来说，许多jQuery方法都有两个版本，一个是供jQuery对象使用的版本，另一个是供jQuery函数使用的版本。下面两个例子，都是取出一个元素的文本，使用的都是text()方法。<br>你既可以使用针对jQuery对象的版本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">　　var $text = $(&quot;#text&quot;);</div><div class="line">　　var $ts = $text.text();</div></pre></td></tr></table></figure>
+<p>也可以使用针对jQuery函数的版本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">　　var $text = $(&quot;#text&quot;);</div><div class="line">　　var $ts = $.text($text);</div></pre></td></tr></table></figure>
+<p>由于后一种针对jQuery函数的版本不通过jQuery对象操作，所以相对开销较小，速度比较快。<br><strong>13.选择作用域链最短的方法</strong><br>严格地说，这一条原则对所有Javascript编程都适用，而不仅仅针对jQuery。<br>我们知道，Javascript的变量采用链式作用域。读取变量的时候，先在当前作用域寻找该变量，如果找不到，就前往上一层的作用域寻找该变量。这样的设计，使得读取局部变量比读取全局变量快得多。<br>请看下面两段代码，第一段代码是读取全局变量：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">　　var a = 0;</div><div class="line">　　function x()&#123;</div><div class="line">　　　　a += 1;</div><div class="line">　　&#125;</div></pre></td></tr></table></figure>
+<p>第二段代码是读取局部变量：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">　　function y()&#123;</div><div class="line">　　　　var a = 0;</div><div class="line">　　　　a += 1;</div><div class="line">　　&#125;</div></pre></td></tr></table></figure>
+<p>第二段代码读取变量a的时候，不用前往上一层作用域，所以要比第一段代码快五六倍。<br>同理，在调用对象方法的时候，closure模式要比prototype模式更快。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">prototype模式：</div><div class="line">　　var X = function(name)&#123; this.name = name; &#125;</div><div class="line">　　X.prototype.get_name = function() &#123; return this.name; &#125;;</div><div class="line">closure模式：</div><div class="line">　　var Y = function(name) &#123;</div><div class="line">　　　　var y = &#123; name: name &#125;;</div><div class="line"></div><div class="line">　　　　return &#123; &apos;get_name&apos;: function() &#123; return y.name; &#125; &#125;;</div><div class="line">　　&#125;;</div></pre></td></tr></table></figure>
+<p>同样是get_name()方法，closure模式更快。<br><strong>14 使用Pub/Sub模式管理事件</strong><br>当发生某个事件后，如果要连续执行多个操作，最好不要写成下面这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">　　function doSomthing&#123;</div><div class="line">　　　　doSomethingElse();</div><div class="line">　　　　doOneMoreThing();</div><div class="line">　　&#125;</div></pre></td></tr></table></figure>
+<p>而要改用事件触发的形式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">　　function doSomething&#123;</div><div class="line">　　　　$.trigger(&quot;DO_SOMETHING_DONE&quot;);</div><div class="line">　　&#125;</div><div class="line">　　$(document).on(&quot;DO_SOMETHING_DONE&quot;, function()&#123;</div><div class="line">　　　　doSomethingElse(); &#125;</div><div class="line">　　);</div></pre></td></tr></table></figure>
+<p>还可以考虑使用deferred对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">　　function doSomething()&#123;</div><div class="line">　　　　var dfd = new $.Deferred();</div><div class="line">　　　　//Do something async, then... </div><div class="line">　　　　//dfd.resolve();</div><div class="line">　　　　return dfd.promise();</div><div class="line">　　&#125;</div><div class="line">　　function doSomethingElse()&#123;</div><div class="line">　　　　$.when(doSomething()).then(//The next thing);</div><div class="line">　　&#125;</div></pre></td></tr></table></figure></p>
+<p>就此，jQuery性能优化就到此了，如果您还有别的方法，希望能不吝赐教，感激不尽。<br><strong>注：此文章为本人就目前所读所用总结，如果有侵犯他人权益之处，请说明，我会及时更改或者注明引用出处。谢谢！</strong></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/qr-wechat.png" alt="阿杜 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/qr-alipay.png" alt="阿杜 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js-高性能/" rel="tag">#js 高性能</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/16/sass初解/" rel="next" title="sass初解">
+                <i class="fa fa-chevron-left"></i> sass初解
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/06/粒子群优化算法（C语言版本）/" rel="prev" title="粒子群优化算法（C语言版本）">
+                粒子群优化算法（C语言版本） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/03/jQuery性能优化/"
+           data-title="jQuery性能优化" data-url="http://adukingc.com/2016/11/03/jQuery性能优化/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="阿杜" />
+          <p class="site-author-name" itemprop="name">阿杜</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/HappyAdu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/Leonard_Aduking" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5341330364" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/a-du-89-4" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-zhihu"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://boyuanblog.com/" title="张博元的博客" target="_blank">张博元的博客</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿杜</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"knox"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = false;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title >= 0 || index_content >= 0 ){
+                                isMatch = true;
+								if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            } 
+							
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("8nAYsy2H0OYidbIYd6f8fbwH-gzGzoHsz", "DLe9N3lcmHHmtqG7kyifxVrf");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
