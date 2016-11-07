@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion">
+<html class="theme-next pisces use-motion">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -29,7 +29,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -63,7 +63,7 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
 
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
@@ -77,7 +77,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+  <link rel="shortcut icon" type="image/x-icon" href="/imgs/favicon.ico?v=5.0.2" />
 
 
 
@@ -96,13 +96,13 @@
 <script type="text/javascript" id="hexo.configuration">
   var NexT = window.NexT || {};
   var CONFIG = {
-    scheme: 'Muse',
+    scheme: 'Pisces',
     sidebar: {"position":"left","display":"post"},
     fancybox: true,
     motion: true,
     duoshuo: {
       userId: '0',
-      author: '博主'
+      author: 'Author'
     }
   };
 </script>
@@ -181,7 +181,19 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
             首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
           </a>
         </li>
       
@@ -189,23 +201,9 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
             归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-schedule">
-          <a href="/schedule" rel="section">
-            
-            日程
           </a>
         </li>
       
@@ -215,6 +213,8 @@
           
             <a href="javascript:;" class="popup-trigger">
           
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
             
             搜索
           </a>
@@ -324,6 +324,15 @@
 
           
           
+             <span id="/2016/11/07/小贴士 用jQuery的Read（）方法代替原生javascript/" class="leancloud_visitors" data-flag-title="【译】用jQuery的Read（）方法代替原生javascript">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
 
           
         </div>
@@ -339,45 +348,17 @@
       
         
           
-            <blockquote>
-<p>本文转载自：<a href="http://www.zcfy.cc" target="_blank" rel="external">众成翻译</a><br>译者：<a href="http://www.zcfy.cc/@HappyAdu" target="_blank" rel="external">HappyAdu</a> 也就是本人啦！<br>链接：<a href="http://www.zcfy.cc/article/1479" target="_blank" rel="external">http://www.zcfy.cc/article/1479</a><br>原文：<a href="https://www.sitepoint.com/jquery-document-ready-plain-javascript/" target="_blank" rel="external">https://www.sitepoint.com/jquery-document-ready-plain-javascript/</a></p>
-</blockquote>
-<p>在jQuery中<code>ready</code>方法在DOM完全下载后立即执行其中的代码。因为它是等所有的DOM元素都加载完毕，才执行给定的函数，所以你能确定那些试图操作和访问元素节点的方法都能被执行。</p>
-<p>在jQuery 3.0的版本前, <code>ready</code>经典用法是用一个匿名函数，像这样：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(document).ready(function() &#123;</div><div class="line">  // Handler for .ready() called.</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<h2 id="jQuery-3-0-ready-变化"><a href="#jQuery-3-0-ready-变化" class="headerlink" title="jQuery 3.0 ready() 变化"></a>jQuery 3.0 ready() 变化</h2><p>在jQuery 3.0发布之前，有以下几种方法称之为<code>ready</code>方法：</p>
-<ul>
-<li><p>在document元素上操作： <code>$(document).ready(handler);</code></p>
-</li>
-<li><p>在空元素上操作: <code>$().ready(handler);</code></p>
-</li>
-<li><p>或者直接（即不在一个具体的元素上）操作: <code>$(handler);</code></p>
-</li>
-</ul>
-<p>上述所有命名的变种在功能上是等价的。无论是哪个元素，在DOM加载完毕之后其指定的处理程序都将会被调用。换句话说，这里的DOM加载完毕并不表示在文档中的某个具体的元素，比如img元素，加载完毕。相反，这里表示的是整个DOM树加载完毕。</p>
-<p>在jQuery 3.0中,除了<code>$(handler)</code> 其他的ready方法都被弃用。官方声明为此：</p>
-<blockquote>
-<p>这是因为选择器并没有和<code>ready()</code>建立联系，不仅低效而且会导致浏览器引擎对该方法的行为进行不正确的假设。</p>
-</blockquote>
-<h2 id="ready-事件和-load-事件的区别"><a href="#ready-事件和-load-事件的区别" class="headerlink" title="ready 事件和 load 事件的区别"></a><code>ready</code> 事件和 <code>load</code> 事件的区别</h2><p>当DOM加载完毕且元素能够被安全访问时就会触发<code>ready</code>事件。另一方面，<code>load</code>事件却在DOM和所有资源加载后触发。</p>
-<p>可以像下面这样使用<code>load</code>事件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(window).on(&quot;load&quot;, function()&#123;</div><div class="line">  // Handler when all assets (including images) are loaded</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>这样的话，不仅仅要等到DOM结构能完全访问，而且还需要等到所有的图片资源完全加载完毕（加载时间取决于图片文件大小）才能执行函数。</p>
-<p>正常的DOM操作你可能不需要<code>load</code>事件,但是如果你想要在所有的资源被加载完毕之前展示一个旋转的加载器样式，比如，又或者你想要用JS计算一下图片的大小，这可能是一个好的选择。</p>
-<h2 id="你可能不需要jQuery-ready"><a href="#你可能不需要jQuery-ready" class="headerlink" title="你可能不需要jQuery.ready()"></a>你可能不需要jQuery.ready()</h2><p><code>ready</code> 方法可以确保代码只在所有DOM元素能被安全操纵时才执行。 但这意味着什么呢？这意味着当你要执行的js代码嵌在HTML中某个片段中时，浏览器也要加载完以下元素才能执行。就像下面这个例子一样:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;!doctype html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">    &lt;title&gt;.ready() tutorial&lt;/title&gt;</div><div class="line">    &lt;script src=&quot;https://cdn.jsdelivr.net/jquery/latest/jquery.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script&gt;</div><div class="line">      $(function()&#123; // .ready() callback, is only executed when the DOM is fully loaded</div><div class="line">        var length = $(&quot;p&quot;).length;</div><div class="line">        // The following will log 1 to the console, as the paragraph exists.</div><div class="line">        // This is the evidence that this method is only called when the</div><div class="line">        // DOM is fully loaded</div><div class="line">        console.log(length);</div><div class="line">      &#125;);</div><div class="line">    &lt;/script&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">  &lt;body&gt;</div><div class="line">    &lt;p&gt;I&apos;m the content of this website&lt;/p&gt;</div><div class="line">  &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
-<p>如果你要执行的javascript代码放在body末尾，你就可能不需要使用<code>ready()</code>方法，因为浏览器解析到javascript时你可能试图操纵和访问的DOM元素已经被加载完了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;!doctype html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">    &lt;title&gt;.ready() tutorial&lt;/title&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">  &lt;body&gt;</div><div class="line">    &lt;p&gt;I&apos;m the content of this website&lt;/p&gt;</div><div class="line">    &lt;script src=&quot;https://cdn.jsdelivr.net/jquery/latest/jquery.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script&gt;</div><div class="line">      var length = $(&quot;p&quot;).length;</div><div class="line">      // The following will log 1 to the console, as the paragraph exists.</div><div class="line">      console.log(length);</div><div class="line">    &lt;/script&gt;</div><div class="line">  &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
-<h2 id="原生JavaScript-ready-替代"><a href="#原生JavaScript-ready-替代" class="headerlink" title="原生JavaScript ready()替代"></a>原生JavaScript ready()替代</h2><p>对于现代浏览器以及IE9+，你可以通过监听 <a href="https://developer.mozilla.org/en/docs/Web/Events/DOMContentLoaded" target="_blank" rel="external"><code>DOMContentLoaded</code></a> 事件实现<code>ready()</code>相同的功能:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">document.addEventListener(&quot;DOMContentLoaded&quot;, function()&#123;</div><div class="line">  // Handler when the DOM is fully loaded</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>但是，请注意，如果事件已经发射，回调将不会被执行。为了确保回调总是运行，jQuery检查文档(<a href="https://github.com/jquery/jquery/blob/ad6a94c3f1747829082b85fd53ee2efbae879707/src/core/ready.js#L80-L93" target="_blank" rel="external">reference</a>) 的“readyState”属性，如果属性值变为 <code>complete</code>，则立即执行回调函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var callback = function()&#123;</div><div class="line">  // Handler when the DOM is fully loaded</div><div class="line">&#125;;</div><div class="line"></div><div class="line">if (</div><div class="line">    document.readyState === &quot;complete&quot; ||</div><div class="line">    (document.readyState !== &quot;loading&quot; &amp;&amp; !document.documentElement.doScroll)</div><div class="line">) &#123;</div><div class="line">  callback();</div><div class="line">&#125; else &#123;</div><div class="line">  document.addEventListener(&quot;DOMContentLoaded&quot;, callback);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>包括domReady](<a href="https://github.com/ded/domready)库，已经实现了这个解决方案。" target="_blank" rel="external">https://github.com/ded/domready)库，已经实现了这个解决方案。</a></p>
-<h3 id="老版本的IE浏览器"><a href="#老版本的IE浏览器" class="headerlink" title="老版本的IE浏览器"></a>老版本的IE浏览器</h3><p>对于IE8及以下的浏览器，你能使用<code>onreadystatechange</code> 事件去监听文档的<code>readyState</code> 属性：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">document.attachEvent(&quot;onreadystatechange&quot;, function()&#123;</div><div class="line">  // check if the DOM is fully loaded</div><div class="line">  if(document.readyState === &quot;complete&quot;)&#123;</div><div class="line">    // remove the listener, to make sure it isn&apos;t fired in future</div><div class="line">    document.detachEvent(&quot;onreadystatechange&quot;, arguments.callee);</div><div class="line">    // The actual handler...</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>或者你可以使用Load事件，如jQuery，这样可以在任何浏览器上运行。这也会导致一个时间延迟，因为它会等待所有的资产被加载。注意，在这个解决方案中你也要检查<code>readyState</code>，如上文所述，这样能确保回调总是能够被执行。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>如果你正在寻找一种原生js替代<code>ready</code>方法，你可以结合<code>DOMContentLoaded</code>事件一起处理。如果你的系统需要兼容IE话，你要确保DOM加载完成。</p>
-
           
+本文转载自：众成翻译译者：HappyAdu 也就是本人啦！链接：http://www.zcfy.cc/article/1479原文：https://www.sitepoint.com/jquery-document-ready-plain-javascript/
+
+在jQuery中ready方法在
+          ...
+
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/11/07/小贴士 用jQuery的Read（）方法代替原生javascript/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -480,6 +461,15 @@
 
           
           
+             <span id="/2016/11/06/粒子群优化算法（C语言版本）/" class="leancloud_visitors" data-flag-title="粒子群优化算法（C语言版本）">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
 
           
         </div>
@@ -495,24 +485,14 @@
       
         
           
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>&emsp;&emsp;经历两小时，终于用C语言写完了算法，真是不容易。已经将近一年多没摸过C语言了，很多都忘了，之前计算机网络课的大作业CSMA-CD协议算法模拟因为要用C语言所以用了两天的空闲时间重新学了一遍C语言（仅仅学到了指针截止），现在也是很多不记得了，写的比较丑陋。希望大家不要笑话。之前本想用JS写的但是不好调试什么的，所以还是用了C语言。（附加一句：物联网专业真的好坑，大二最好就自学号JAVA或者C++不然大三真的比较老火.）</p>
-<h2 id="粒子群优化算法简介"><a href="#粒子群优化算法简介" class="headerlink" title="粒子群优化算法简介"></a>粒子群优化算法简介</h2><p>&amp;emm oniziranjiesp;&emsp;粒子群优化算法是进化计算的一个分支，是一种模拟自然界的生物活动的<strong>随机搜索</strong>算法。PSO（粒子群优化算法）模拟了自然界鸟群捕食和鱼群捕食的过程。它是1995年由美国学者Eberhat和Kennedy提出的，现在已经广泛应用于各种工程领域的优化问题之中。</p>
-<h2 id="核心"><a href="#核心" class="headerlink" title="核心"></a>核心</h2><ul>
-<li>速度与位置更新公式</li>
-<li>速度与位置更新公式</li>
-</ul>
-<p>$$ v_i^d =w<em>v_i^d+c_1</em>r_1^d<em>({pBest_i^d-x_i^d})+c_2</em>r_2^d*({gBest_i^d-x_i^d}) $$<br>$$ x_i^d =x_i^d+v_i^d $$</p>
-<h2 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h2><ul>
-<li>初始化</li>
-<li>更新</li>
-<li>迭代</li>
-<li>满足条件后停止</li>
-</ul>
-<h2 id="源程序"><a href="#源程序" class="headerlink" title="源程序"></a>源程序</h2><h3 id="用例"><a href="#用例" class="headerlink" title="用例"></a>用例</h3><p>已知函数$ y=f(x_1,x_2)=x_1^2+x_2^2 $,其中$ -10&lt;={ x_1,x_2 }&lt;=10 $,用粒子群优化算法求解y的最小值。</p>
-<h3 id="源程序-1"><a href="#源程序-1" class="headerlink" title="源程序"></a>源程序</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*******************************************************************************</span></div><div class="line">*</div><div class="line">*                 	 粒子群优化算法</div><div class="line">*--------------------------------------------------------------------------------</div><div class="line">* 算法题目		 : 例题5.1</div><div class="line">* 算法说明       :w是惯量权重，一般取0-1之间数字，这儿取0.5</div><div class="line">*                  c1,c2为加速系数，通常取固定值2.0</div><div class="line">*                  r1,r2为[0-1]随机数</div><div class="line">* 注意	         :对于越界的位置需要进行合法性的调整</div><div class="line"></div><div class="line">                求最小值则只需要对函数f进行改动以及204行的update sum计算进行改动。</div><div class="line">                如果求最大值，则不仅仅改动上述过程，还包括64行的判断以及204行的判断</div><div class="line"></div><div class="line">                改动x域值则只需要手动输入，改变群体只需要define N 群体数</div><div class="line">*******************************************************************************/</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdio.h"</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdlib.h"</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"time.h"</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> N 3</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">/********************************************************************</span></div><div class="line">*函数名：init_helper()</div><div class="line">*函数功能：初始化辅助函数</div><div class="line">*函数输入：unsigned top ,unsigned bottom  上边界，下边界</div><div class="line">*输出:无</div><div class="line">**********************************************************************************/</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">init_helper</span><span class="params">(<span class="keyword">int</span> top,<span class="keyword">int</span> bottom,<span class="keyword">float</span> arr[N][<span class="number">6</span>])</span> <span class="comment">//位置 速度 个人历史最好位置6个数（x，y）形式</span></span></div><div class="line">&#123;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> i,j;</div><div class="line"></div><div class="line">    srand((<span class="keyword">unsigned</span>)time(<span class="literal">NULL</span>));</div><div class="line"></div><div class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>;i&lt;N;i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;<span class="number">4</span>;j++)</div><div class="line">        &#123;</div><div class="line">            arr[i][j]=rand()%(top-bottom+<span class="number">1</span>)+bottom;<span class="comment">//产生[bottom,top]之间的随机数</span></div><div class="line">        &#125;</div><div class="line">        arr[i][<span class="number">4</span>]=arr[i][<span class="number">0</span>];</div><div class="line">        arr[i][<span class="number">5</span>]=arr[i][<span class="number">1</span>];</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/************************************************************************</span></div><div class="line">*函数名：f(）</div><div class="line">*函数功能：计算每个解</div><div class="line">*函数输入：particle[][]</div><div class="line">*函数输出：无</div><div class="line">***************************************************************************/</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">float</span> particle[N][<span class="number">6</span>],<span class="keyword">float</span> gbest[<span class="number">2</span>],<span class="keyword">float</span> history_best[<span class="number">2</span>])</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">float</span> sum[N],M_in[<span class="number">1</span>][<span class="number">2</span>];</div><div class="line">    <span class="keyword">int</span> i ,j;</div><div class="line">    M_in[<span class="number">0</span>][<span class="number">0</span>]=<span class="number">100</span>;</div><div class="line">    M_in[<span class="number">0</span>][<span class="number">1</span>]=<span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;N;i++)</div><div class="line">    &#123;</div><div class="line">        sum[i]=particle[i][<span class="number">0</span>]*particle[i][<span class="number">0</span>] + particle[i][<span class="number">1</span>]*particle[i][<span class="number">1</span>];</div><div class="line">        <span class="keyword">if</span>(sum[i]&lt;M_in[<span class="number">0</span>][<span class="number">0</span>])</div><div class="line">        &#123;</div><div class="line">            M_in[<span class="number">0</span>][<span class="number">0</span>]=sum[i];</div><div class="line">            M_in[<span class="number">0</span>][<span class="number">1</span>]=i;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    j=M_in[<span class="number">0</span>][<span class="number">1</span>];</div><div class="line">     <span class="built_in">printf</span>(<span class="string">"最小坐标为:  "</span>);</div><div class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">2</span>;i++)</div><div class="line">    &#123;</div><div class="line">        history_best[i]=gbest[i];</div><div class="line">        gbest[i] = particle[j][i];</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%5.2f  "</span>,gbest[i]);</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"全局最优函数值和当前最小值位置分别为 "</span>);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%5.2f   "</span>,M_in[<span class="number">0</span>][<span class="number">0</span>]);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%5.2f\n"</span>,M_in[<span class="number">0</span>][<span class="number">1</span>]+<span class="number">1</span>);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"全局最优坐标为"</span>);</div><div class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">2</span>;i++)</div><div class="line">      &#123;</div><div class="line">          <span class="built_in">printf</span>(<span class="string">"  %5.2f  "</span>,gbest[i]);</div><div class="line">      &#125;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"历史最优坐标："</span>);</div><div class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">2</span>;i++)</div><div class="line">      &#123;</div><div class="line">          <span class="built_in">printf</span>(<span class="string">"  %5.2f  "</span>,history_best[i]);</div><div class="line">      &#125;</div><div class="line">     <span class="built_in">printf</span>(<span class="string">"\n"</span>);</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/*******************************************************************************</span></div><div class="line">*函数名称：init（）</div><div class="line">*函数功能：初始化</div><div class="line">*输入：</div><div class="line">*输出：</div><div class="line">********************************************************************************/</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(<span class="keyword">int</span> top,<span class="keyword">int</span> bottom,<span class="keyword">float</span> particle[N][<span class="number">6</span>],<span class="keyword">float</span> gbest[<span class="number">2</span>],<span class="keyword">float</span> history_best[<span class="number">2</span>])</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> i,j;</div><div class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;bottom,&amp;top);</div><div class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;N;i++)</div><div class="line">    &#123;</div><div class="line">        init_helper(top,bottom,particle);</div><div class="line">    &#125;</div><div class="line">    f(particle,gbest,history_best);</div><div class="line"></div><div class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;N;i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;<span class="number">6</span>;j++)</div><div class="line">        &#123;</div><div class="line">            <span class="built_in">printf</span>(<span class="string">"%5.2f   "</span>,particle[i][j]);</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">/*******************************************************************************</span></div><div class="line">*函数名称：update（int top,int bottom,float particle[N][6],float gbest[2],float history_best[2]）</div><div class="line">*函数功能:更新速度和位置</div><div class="line">*输入：int top,int bottom,float particle[N][6],float gbest[2]</div><div class="line">*输出：无</div><div class="line">********************************************************************************/</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> top,<span class="keyword">int</span> bottom,<span class="keyword">float</span> particle[N][<span class="number">6</span>],<span class="keyword">float</span> gbest[<span class="number">2</span>],<span class="keyword">float</span> w,<span class="keyword">float</span> c,<span class="keyword">float</span> r1,<span class="keyword">float</span> r2,<span class="keyword">float</span> history_best[<span class="number">2</span>])</span></span></div><div class="line">&#123;</div><div class="line">   <span class="keyword">int</span> i,j=<span class="number">2</span>,k;</div><div class="line"></div><div class="line">   <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;N;i++)</div><div class="line">   &#123;</div><div class="line">        srand((<span class="keyword">unsigned</span>)time(<span class="literal">NULL</span>));</div><div class="line">        r1=rand()/(<span class="keyword">double</span>)(<span class="number">32768</span>);</div><div class="line">        r2=rand()/(<span class="keyword">double</span>)(<span class="number">32768</span>);</div><div class="line"></div><div class="line">        <span class="comment">//更新速度</span></div><div class="line">        particle[i][j]=w*particle[i][j]+c*r1*(particle[i][j+<span class="number">2</span>]-particle[i][<span class="number">0</span>])+c*r2*(gbest[<span class="number">0</span>]-particle[i][<span class="number">0</span>]);</div><div class="line">        particle[i][j+<span class="number">1</span>]=w*particle[i][j+<span class="number">1</span>]+c*r1*(particle[i][j+<span class="number">3</span>]-particle[i][<span class="number">1</span>])+c*r2*(gbest[<span class="number">1</span>]-particle[i][<span class="number">1</span>]);</div><div class="line"></div><div class="line">        <span class="comment">// 对越界数进行处理，大于大边界取top，小于下边界取bottom</span></div><div class="line">        <span class="keyword">for</span>(k=<span class="number">0</span>;k&lt;<span class="number">2</span>;k++)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">if</span>(particle[i][j+k]&gt;<span class="number">10</span>)</div><div class="line">                particle[i][j+k]=<span class="number">10</span>;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(particle[i][j+k]&lt;<span class="number">-10</span>)</div><div class="line">            particle[i][j+k]=<span class="number">-10</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">        <span class="comment">// 更新位置</span></div><div class="line">        particle[i][<span class="number">0</span>]+=particle[i][j];</div><div class="line">        particle[i][<span class="number">1</span>]+=particle[i][j+<span class="number">1</span>];</div><div class="line"></div><div class="line">         <span class="comment">// 对越界数进行处理，大于大边界取top，小于下边界取bottom</span></div><div class="line">        <span class="keyword">for</span>(k=<span class="number">0</span>;k&lt;<span class="number">2</span>;k++)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">if</span>(particle[i][k]&gt;<span class="number">10</span>)</div><div class="line">                particle[i][k]=<span class="number">10</span>;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(particle[i][k]&lt;<span class="number">-10</span>)</div><div class="line">            particle[i][k]=<span class="number">-10</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">   &#125;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"更新后位置速度为，此时个人历史最优尚未更新\n"</span>);</div><div class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;N;i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;<span class="number">6</span>;j++)</div><div class="line">        &#123;</div><div class="line">            <span class="built_in">printf</span>(<span class="string">"%5.2f   "</span>,particle[i][j]);</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</div><div class="line">    &#125;</div><div class="line">   update_helpaer(particle,gbest,history_best);</div><div class="line">   <span class="built_in">printf</span>(<span class="string">"更新后位置速度为，此时个人历史最优已经更新\n"</span>);</div><div class="line">   <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;N;i++)</div><div class="line">  &#123;</div><div class="line">    <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;<span class="number">6</span>;j++)</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%5.2f   "</span>,particle[i][j]);</div><div class="line">    &#125;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/*******************************************************************************</span></div><div class="line">*函数名称：update_helper（float particle[N][6],float gbest[2],float history_best[2]）</div><div class="line">*函数功能:更新个人历史最优以及全局最优位置</div><div class="line">*输入：float particle[N][6],float gbest[2] float history_best[2]</div><div class="line">*输出：无</div><div class="line">********************************************************************************/</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">update_helpaer</span><span class="params">(<span class="keyword">float</span> particle[N][<span class="number">6</span>],<span class="keyword">float</span> gbest[<span class="number">2</span>],<span class="keyword">float</span> history_best[<span class="number">2</span>])</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">float</span> sum[<span class="number">2</span>];</div><div class="line">    <span class="keyword">int</span> i,j;</div><div class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;N;i++)</div><div class="line">    &#123;</div><div class="line"></div><div class="line">        sum[<span class="number">0</span>]=particle[i][<span class="number">0</span>]*particle[i][<span class="number">0</span>]+particle[i][<span class="number">1</span>]*particle[i][<span class="number">1</span>];</div><div class="line">        sum[<span class="number">1</span>]=particle[i][<span class="number">4</span>]*particle[i][<span class="number">4</span>]+particle[i][<span class="number">5</span>]*particle[i][<span class="number">5</span>];</div><div class="line">        <span class="keyword">if</span>(sum[<span class="number">0</span>]&lt;sum[<span class="number">1</span>])</div><div class="line">        &#123;</div><div class="line">            particle[i][<span class="number">4</span>]=particle[i][<span class="number">0</span>];</div><div class="line">            particle[i][<span class="number">5</span>]=particle[i][<span class="number">1</span>];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    f(particle,gbest,history_best);</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// 主函数main（）</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> top,</div><div class="line">        bottom,</div><div class="line">        i=<span class="number">0</span>,</div><div class="line">        j;</div><div class="line">    <span class="keyword">float</span> w=<span class="number">0.5</span>,</div><div class="line">          c=<span class="number">2.0</span>,</div><div class="line">          r1=<span class="number">0.0</span>,</div><div class="line">          r2=<span class="number">0.0</span>,</div><div class="line">        particle[N][<span class="number">6</span>],</div><div class="line">        gbest[<span class="number">2</span>]=&#123;<span class="number">-10</span>,<span class="number">10</span>&#125;,</div><div class="line">        history_best[<span class="number">2</span>],</div><div class="line">        pbest[<span class="number">2</span>];</div><div class="line"></div><div class="line">    init(top,bottom,particle,gbest,history_best);</div><div class="line">    <span class="keyword">while</span>(gbest[<span class="number">0</span>]!=history_best[<span class="number">0</span>]&amp;&amp;gbest[<span class="number">1</span>]!=history_best[<span class="number">1</span>])</div><div class="line">    &#123;</div><div class="line">     update(top,bottom,particle,gbest,w,c,r1,r2,history_best);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">    <span class="built_in">printf</span>(<span class="string">"解为："</span>);</div><div class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">2</span>;i++)</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%5.2f  "</span>,gbest[i]);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong>注：以上为本人原创，转载请注明出处，谢谢。</strong></p>
+          前言&emsp;&emsp;经历两小时，终于用C语言写完了算法，真是不容易。已经将近一年多没摸过C语言了，很多都忘了，之前计算机网络课的大作业CSMA-CD协议算法模拟因为要用C语言所以用了两天的空闲时间重新学了一遍C语言（仅仅学到了指针截止），现在也是很多不记得了，写的比较丑陋。希望大家不要笑话。
+          ...
 
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/11/06/粒子群优化算法（C语言版本）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -615,6 +595,15 @@
 
           
           
+             <span id="/2016/11/03/jQuery性能优化/" class="leancloud_visitors" data-flag-title="jQuery性能优化">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
 
           
         </div>
@@ -630,40 +619,14 @@
       
         
           
-            <p>&emsp;&emsp;对于前端初学者而言，学习jQuery是必须经过的一步，毕竟这门相对老牌的js库许多的项目现在仍在使用。一是这门语言容易上手，且几乎人人都会，可以减少团队成员的学习成本（人人都会），一是这个库的确也提供了大量可靠的插件扩展，能提高我们的开发效率。那么如何什么样的jQuery代码性能最佳？就我个人观点是，尽量减少DOM操作，尤其是那些可能会引起页面重绘的操作是最佳实践不可或缺的一项法则。其次，便也是减少全局对象的直接引用了。</p>
-<p>那么，具体细节，客观随我一观：</p>
-<p> <strong>1.使用性能较优的选择器</strong><br>&emsp;&emsp;和原生JS想比，jQuery取对象的方式简单易学，但是什么样的选择器更快呢？曾经的一段时间我一度以为是id,但后来看了些博客后我知道我是错了。在JQuery中 选择器性能排序是这样的： id &emsp;&gt;&emsp; 标签选择器&emsp; &gt; &emsp;属性选择器 &gt; \$(“:hidden”)等伪选择器。<em>建议尽可能使用id选择器，标签选择器作为第二优先选择</em>，有选择的使用类。尽可能避免使用后续方法选择。<br><strong>2.将对象缓存</strong><br>&emsp;&emsp;最好使用局部变量缓存DOM和选择器获得的jquery对象，以免每一次操作又会重新遍历节点查找DOM返回动漫对象或者创建jquery对象，这会浪费很多的性能。示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//bad</div><div class="line">$(&quot;#traffic input&quot;).bind(&quot;click&quot;,function()&#123;....&#125;);</div><div class="line">$(&quot;#traffic input&quot;).css(&quot;background-color&quot;,&quot;red&quot;);</div><div class="line">$(&quot;#traffic input&quot;).fadeIn(&quot;slow&quot;);</div><div class="line">//good</div><div class="line">var $active_light = $(&quot;#traffic input&quot;);</div><div class="line">$active_light.bind(&quot;click&quot;,function()&#123;....&#125;);</div><div class="line">$active_light.css(&quot;background-color&quot;,&quot;red&quot;);</div><div class="line">$active_light.fadeIn(&quot;slow&quot;);</div></pre></td></tr></table></figure></p>
-<p>当然最好使用jquery的链式方式是使代码更加整洁，不要让相同的选择器在你的代码中出现多次。<br><strong>3.减少循环时的DOM操作</strong><br>在循环时要尽可能的减少DOM操作，在for，each等中循环时优化的一大策略就是减少工作量。比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">// bad </div><div class="line">for(i = 0; i &lt; a.length; i++)&#123;</div><div class="line">    var $mylist = $(&quot;#mylist&quot;);</div><div class="line">    $mylist.append(&quot;this is list item&quot; + i);</div><div class="line">&#125;</div><div class="line">// good</div><div class="line">var $mylist = $(&quot;#mylist&quot;);</div><div class="line">var list = &quot;&quot;;</div><div class="line">for(i = 0,len = a.length; i &lt; len; i++)&#123;</div><div class="line">    list += &quot;this is list item&quot; + i;</div><div class="line">&#125;</div><div class="line">$mylist.append(list);</div></pre></td></tr></table></figure></p>
-<p>看出什么没有呢？改过后的例子是不是减少了很多DOM操作，这无疑减少了我们循环遍历时的DOM操作量，大大优化了我们的性能。<br><strong>4.以数组方式使用jQuery对象</strong><br>使用jQuery选择器获取结果是一个jQuery对象，然而jQuery类库会让你感觉你正在使用一个定义了索引和长度的数组，所以检查长度也是一个检查jQuery对象是否存在的方式。在性能方面，使用for或者while循环处理比\$.each()更快，可以使用for或者while循环替代$.each()：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$.each(array,function()&#123;</div><div class="line">    array[i] = i;</div><div class="line">&#125;)</div><div class="line">或者</div><div class="line">for（i = 0,len = array.length; i &lt; len; i++）&#123;</div><div class="line">    array[i] = i; </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><strong>5.使用事件代理</strong><br>&emsp;&emsp;利用事件冒泡，我么可以方便的给多个元素调用一个相同的函数。比如，我们要为一个表格绑定这样的行为：点击td后，背景设置为红色，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;# mytable td&quot;).click(function()&#123;</div><div class="line">    $(this).css(&quot;background&quot;,&quot;red&quot;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>这样的代码在有很多个td时会为每一个td都绑定这个函数，无疑的会带来性能影响，所以使用事件冒泡的原理向父节点绑定一个事件，通过event.target获取当前点击的元素更好。代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$(&quot;# mytable&quot;).click(function(e)&#123;</div><div class="line">    var $clicked = $(e.targent); // 捕捉到出发的目标元素</div><div class="line">    $clicked.css(&quot;background&quot;,&quot;red&quot;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>在改进方式中，只为一个元素添加一个事件。显然，性能更好。在jQuery1.7中提供了一个新的方式on（），将帮助我们将整个事件监听封装到一个便利方法中。如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;#mytable&quot;).on(&quot;click&quot;,&quot;td&quot;,function()&#123;</div><div class="line">    $(this).css(&quot;background&quot;,&quot;red&quot;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p><strong>6.将重用代码尽可能转化为jQuery插件</strong><br>创建一个插件方式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">（function（$）&#123;</div><div class="line"></div><div class="line">    $.fn.pluginNmae = function()&#123;</div><div class="line">     // code</div><div class="line">     return this; // 返回方便链式操作</div><div class="line">    &#125;</div><div class="line">&#125;(jQuery)）</div></pre></td></tr></table></figure></p>
-<p><strong>7.使用join（）来拼接字符串</strong><br><strong>8。合理利用HTML5的Data属性</strong><br>HTML5的data属性可以帮助我们插入数据，特别是前后端的数据交换。jQuery的data（）方法可以有效利用这一特性来获得数据，比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;dl&quot; data-role=&quot;page&quot;&gt;&lt;/div&gt;</div><div class="line">// 获取数据</div><div class="line">$(&quot;#dl&quot;).data(&quot;role&quot;); // &quot;page&quot;</div></pre></td></tr></table></figure></p>
-<p><strong>9.尽可能使用原生的js方式</strong><br>不得不说，方法的选择很重要。原生的性能更好。比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">var $cr = $(&quot;#cr&quot;);</div><div class="line">$cr.click(function()&#123;</div><div class="line">    if($cr.is(&quot;:checked&quot;))&#123;</div><div class="line">        alert(&quot;.....&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line">// 原生的js</div><div class="line">var $cr = $(&quot;#cr&quot;);</div><div class="line">var cr = $cr[0];</div><div class="line">$cr.click(function()&#123;</div><div class="line">    if(cr.checked)&#123;</div><div class="line">        alert(&quot;.....&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>毋庸置疑，这里原生的js性能更好，因为没有拐弯抹角的调用许多函数。<br>还有很多类似的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">比如$(this).css(&quot;color&quot;,&quot;red&quot;)----可替换为this.style.color=&quot;red&quot;;</div><div class="line">$(&quot;&lt;p&gt;&lt;/p&gt;&quot;)-----------document.creatElement（&quot;p&quot;）;等等</div></pre></td></tr></table></figure></p>
-<p>经验告诉我们，有时候根本不需要jQuery<br><strong>10.使用链式写法</strong><br>jQuery的一大特点，就是允许使用链式写法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&apos;div&apos;).find(&apos;h3&apos;).eq(2).html(&apos;Hello&apos;);</div></pre></td></tr></table></figure></p>
-<p>采用链式写法时，jQuery自动缓存每一步的结果，因此比非链式写法要快。根据测试，链式写法比（不使用缓存的）非链式写法，大约快了25%。<br><strong>11.减少DOM操作</strong><br>（1）改动DOM结构开销很大，因此不要频繁使用.append()、.insertBefore()和.insetAfter()这样的方法。<br>如果要插入多个元素，就先把它们合并，然后再一次性插入。根据测试，合并插入比不合并插入，快了将近10倍。<br>（2）如果你要对一个DOM元素进行大量处理，应该先用.detach()方法，把这个元素从DOM中取出来，处理完毕以后，再重新插回文档。根据测试，使用.detach()方法比不使用时，快了60%。<br>（3）如果你要在DOM元素上储存数据，不要写成下面这样：<br>　<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">　　var elem = $(&apos;#elem&apos;);</div><div class="line">　　elem.data(key,value);</div></pre></td></tr></table></figure></p>
-<p>　<br>而要写成</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">　　var elem = $(&apos;#elem&apos;);</div><div class="line">　　$.data(elem[0],key,value);</div></pre></td></tr></table></figure>
-<p>根据测试，后一种写法要比前一种写法，快了将近10倍。因为elem.data()方法是定义在jQuery函数的prototype对象上面的，而$.data()方法是定义jQuery函数上面的，调用的时候不从复杂的jQuery对象上调用，所以速度快得多。（此处可以参阅下面第10点。）<br>（4）插入html代码的时候，浏览器原生的innterHTML()方法比jQuery对象的html()更快。<br><strong>12、尽量少生成Jquery对象</strong><br>每当你使用一次选择器（比如$(‘#id’)），就会生成一个jQuery对象。jQuery对象是一个很庞大的对象，带有很多属性和方法，会占用不少资源。所以，尽量少生成jQuery对象。<br>举例来说，许多jQuery方法都有两个版本，一个是供jQuery对象使用的版本，另一个是供jQuery函数使用的版本。下面两个例子，都是取出一个元素的文本，使用的都是text()方法。<br>你既可以使用针对jQuery对象的版本：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">　　var $text = $(&quot;#text&quot;);</div><div class="line">　　var $ts = $text.text();</div></pre></td></tr></table></figure>
-<p>也可以使用针对jQuery函数的版本：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">　　var $text = $(&quot;#text&quot;);</div><div class="line">　　var $ts = $.text($text);</div></pre></td></tr></table></figure>
-<p>由于后一种针对jQuery函数的版本不通过jQuery对象操作，所以相对开销较小，速度比较快。<br><strong>13.选择作用域链最短的方法</strong><br>严格地说，这一条原则对所有Javascript编程都适用，而不仅仅针对jQuery。<br>我们知道，Javascript的变量采用链式作用域。读取变量的时候，先在当前作用域寻找该变量，如果找不到，就前往上一层的作用域寻找该变量。这样的设计，使得读取局部变量比读取全局变量快得多。<br>请看下面两段代码，第一段代码是读取全局变量：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">　　var a = 0;</div><div class="line">　　function x()&#123;</div><div class="line">　　　　a += 1;</div><div class="line">　　&#125;</div></pre></td></tr></table></figure>
-<p>第二段代码是读取局部变量：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">　　function y()&#123;</div><div class="line">　　　　var a = 0;</div><div class="line">　　　　a += 1;</div><div class="line">　　&#125;</div></pre></td></tr></table></figure>
-<p>第二段代码读取变量a的时候，不用前往上一层作用域，所以要比第一段代码快五六倍。<br>同理，在调用对象方法的时候，closure模式要比prototype模式更快。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">prototype模式：</div><div class="line">　　var X = function(name)&#123; this.name = name; &#125;</div><div class="line">　　X.prototype.get_name = function() &#123; return this.name; &#125;;</div><div class="line">closure模式：</div><div class="line">　　var Y = function(name) &#123;</div><div class="line">　　　　var y = &#123; name: name &#125;;</div><div class="line"></div><div class="line">　　　　return &#123; &apos;get_name&apos;: function() &#123; return y.name; &#125; &#125;;</div><div class="line">　　&#125;;</div></pre></td></tr></table></figure>
-<p>同样是get_name()方法，closure模式更快。<br><strong>14 使用Pub/Sub模式管理事件</strong><br>当发生某个事件后，如果要连续执行多个操作，最好不要写成下面这样：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">　　function doSomthing&#123;</div><div class="line">　　　　doSomethingElse();</div><div class="line">　　　　doOneMoreThing();</div><div class="line">　　&#125;</div></pre></td></tr></table></figure>
-<p>而要改用事件触发的形式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">　　function doSomething&#123;</div><div class="line">　　　　$.trigger(&quot;DO_SOMETHING_DONE&quot;);</div><div class="line">　　&#125;</div><div class="line">　　$(document).on(&quot;DO_SOMETHING_DONE&quot;, function()&#123;</div><div class="line">　　　　doSomethingElse(); &#125;</div><div class="line">　　);</div></pre></td></tr></table></figure>
-<p>还可以考虑使用deferred对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">　　function doSomething()&#123;</div><div class="line">　　　　var dfd = new $.Deferred();</div><div class="line">　　　　//Do something async, then... </div><div class="line">　　　　//dfd.resolve();</div><div class="line">　　　　return dfd.promise();</div><div class="line">　　&#125;</div><div class="line">　　function doSomethingElse()&#123;</div><div class="line">　　　　$.when(doSomething()).then(//The next thing);</div><div class="line">　　&#125;</div></pre></td></tr></table></figure></p>
-<p>就此，jQuery性能优化就到此了，如果您还有别的方法，希望能不吝赐教，感激不尽。<br><strong>注：此文章为本人就目前所读所用总结，如果有侵犯他人权益之处，请说明，我会及时更改或者注明引用出处。谢谢！</strong></p>
+          &emsp;&emsp;对于前端初学者而言，学习jQuery是必须经过的一步，毕竟这门相对老牌的js库许多的项目现在仍在使用。一是这门语言容易上手，且几乎人人都会，可以减少团队成员的学习成本（人人都会），一是这个库的确也提供了大量可靠的插件扩展，能提高我们的开发效率。那么如何什么样的jQuery代码
+          ...
 
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/11/03/jQuery性能优化/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -766,6 +729,15 @@
 
           
           
+             <span id="/2016/10/16/sass初解/" class="leancloud_visitors" data-flag-title="sass初解">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
 
           
         </div>
@@ -781,72 +753,14 @@
       
         
           
-            <p>SASS有两种后缀文件：一种后缀名为sass，不适用大括号和分号；另一种是scss文件，这种和我们平时写的css文件格式相差不大，使用大括号和分号。本篇文章讲解主要为scss，建议使用后缀名为scss的文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//文件后缀名为scss的语法</div><div class="line">body&#123;</div><div class="line">    background：#eee;</div><div class="line">    font-size:12px;</div><div class="line">    p&#123;</div><div class="line">        background:#145156;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>###导入<br>SASS导入（@import）规则和css有所不同，编译时会将@import的scss文件合并。但是如果导入css后缀名文件就和普通css导入无差别。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">//a.scss</div><div class="line">//----------------------------</div><div class="line">body&#123;</div><div class="line">    font-size:16px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>需导入样式的sass文件b.scss<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@import &quot;reset.css&quot;;</div><div class="line">@import &quot;a&quot;;</div><div class="line">p&#123;</div><div class="line">    font-size:12px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>编译出的css：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">@import &quot;reset.css&quot;;</div><div class="line">body&#123;</div><div class="line">    font-size:16px;</div><div class="line">&#125;</div><div class="line">p&#123;</div><div class="line">    font-size:12px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<hr>
-<p>###注释<br>sass有两种注释方式，一种是标准的css注释样式<code>/**/</code>，另一种是双斜杠形式的单行注释（不会转译到css中）。</p>
-<hr>
-<p>###变量<br>SASS的变量必须是$开头，后面紧跟变量名，而变量值和变量名之间需使用冒号（：）分隔开，如果值后面跟上 <code>！default</code>则表示默认值。<br><strong>普通变量</strong><br>定义之后可以在全局范围内使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">//sass style</div><div class="line">//----------------------</div><div class="line">$fontSize: 12px;</div><div class="line">body&#123;</div><div class="line">    font-size:$fontSize;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//css style</div><div class="line">//-----------------------</div><div class="line">body&#123;</div><div class="line">    font-size:12px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><strong>默认变量</strong><br>sass的默认变量一般是用来设置默认值，然后根据需求来覆盖，覆盖的方式是在默认变量之前重新声明下变量即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">//sass style</div><div class="line">//-------------------------------</div><div class="line">$baseLineHeight:        2;</div><div class="line">$baseLineHeight:        1.5 !default;</div><div class="line">body&#123;</div><div class="line">    line-height: $baseLineHeight; </div><div class="line">&#125;</div><div class="line"></div><div class="line">//css style</div><div class="line">//-------------------------------</div><div class="line">body&#123;</div><div class="line">    line-height:2;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><em>在这里默认值被覆盖，并作用于全局。接下来，看一看选择器中定义局部变量和全局变量测试</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">//覆写default</div><div class="line">$fontSize:16px;</div><div class="line">//定义默认样式</div><div class="line">$fontSize:12px !default;</div><div class="line"></div><div class="line">//覆写测试</div><div class="line">ul&#123;</div><div class="line"> font-size:$fontSize;//16px</div><div class="line">&#125;</div><div class="line">//局部覆写测试&amp;&amp;选择器中定义局部变量测试</div><div class="line">li&#123;</div><div class="line">    $fontSize: 18px;</div><div class="line">    font-size:$fontSize;//18px</div><div class="line">&#125;</div><div class="line">a&#123;</div><div class="line">    font-size:$fontSize;//16px</div><div class="line">&#125;</div><div class="line">//选择器中定义全局变量测试</div><div class="line">.demo2&#123;</div><div class="line">    $fontSize: 20px !global;</div><div class="line">    font-size:$fontSize;//20px</div><div class="line">&#125;</div><div class="line">.deom3&#123;</div><div class="line">    font-size:$fontSize;//20px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>总结：scss实际上就是一个编程语言，有它的作用域，函数和变量。在全局定义的可在全局使用，在局部定义的局部变量只能在局部使用，定义加上<code>！global</code> 或者<code>！default</code>便可以在其他选择器作用域中使用。</p>
-<hr>
-<p><strong>特殊变量</strong><br>一般定义的变量都为属性值，可直接使用。但如果变量作为<code>属性</code>或在某些特殊情况下等则必须要以#{$variables}形式使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">//sass style</div><div class="line">//-------------------------------</div><div class="line">$borderDirection:       top !default; </div><div class="line">$baseFontSize:          12px !default;</div><div class="line">$baseLineHeight:        1.5 !default;</div><div class="line"></div><div class="line">//应用于class和属性</div><div class="line">.border-#&#123;$borderDirection&#125;&#123;</div><div class="line">  border-#&#123;$borderDirection&#125;:1px solid #ccc;</div><div class="line">&#125;</div><div class="line">//应用于复杂的属性值</div><div class="line">body&#123;</div><div class="line">    font:#&#123;$baseFontSize&#125;/#&#123;$baseLineHeight&#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//css style</div><div class="line">//-------------------------------</div><div class="line">.border-top&#123;</div><div class="line">  border-top:1px solid #ccc;</div><div class="line">&#125;</div><div class="line">body &#123;</div><div class="line">  font: 12px/1.5;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<hr>
-<p><strong>多值变量</strong></p>
-<blockquote>
-<p>多值变量分为list类型和map类型，简单说list类型有点像js中的数组，而map类型有点像js中对象。</p>
-</blockquote>
-<p><strong><em>list</em></strong></p>
-<blockquote>
-<p>list数据可通过空格，逗号或者小括号分隔多个值。可用nth($var,$index)取值。关于list数据操作还有很多其他函数如length($list)，join($list1,$list2,[$separator])，append($list,$value,[$separator])等，具体可参考<a href="http://sass-lang.com/documentation/Sass/Script/Functions.html" target="_blank" rel="external">sass Functions</a>（搜索List Functions即可）。<br><em>定义</em><br><figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//一维数据</span></div><div class="line"><span class="variable">$px</span>: <span class="number">5px</span> <span class="number">10px</span> <span class="number">20px</span> <span class="number">30px</span>;</div><div class="line"></div><div class="line"><span class="comment">//二维数据，相当于js中的二维数组</span></div><div class="line"><span class="variable">$px</span>: <span class="number">5px</span> <span class="number">10px</span>, <span class="number">20px</span> <span class="number">30px</span>;</div><div class="line"><span class="variable">$px</span>: (<span class="number">5px</span> <span class="number">10px</span>) (<span class="number">20px</span> <span class="number">30px</span>);</div></pre></td></tr></table></figure></p>
-</blockquote>
-<p><em>使用</em><br><figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//sass style</span></div><div class="line"><span class="comment">//-------------------------------</span></div><div class="line"><span class="variable">$linkColor</span>:         <span class="number">#08c</span> <span class="number">#333</span> !default;<span class="comment">//第一个值为默认值，第二个鼠标滑过值</span></div><div class="line"><span class="selector-tag">a</span>&#123;</div><div class="line">  <span class="attribute">color</span>:nth(<span class="variable">$linkColor</span>,<span class="number">1</span>);</div><div class="line"></div><div class="line">  &amp;:hover&#123;</div><div class="line">    <span class="attribute">color</span>:nth(<span class="variable">$linkColor</span>,<span class="number">2</span>);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//css style</span></div><div class="line"><span class="comment">//-------------------------------</span></div><div class="line"><span class="selector-tag">a</span>&#123;</div><div class="line">  <span class="attribute">color</span>:<span class="number">#08c</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-tag">a</span>:hover&#123;</div><div class="line">  <span class="attribute">color</span>:<span class="number">#333</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><strong><em>map</em></strong></p>
-<blockquote>
-<p>map数据以key和value成对出现，其中value又可以是list。格式为：$map: (key1: value1, key2: value2, key3: value3);。可通过map-get($map,$key)取值。关于map数据还有很多其他函数如map-merge($map1,$map2)，map-keys($map)，map-values($map)等，具体可参考<a href="http://sass-lang.com/documentation/Sass/Script/Functions.html" target="_blank" rel="external">sass Functions</a>（搜索List Functions即可）。</p>
-</blockquote>
-<hr>
-<h3 id="嵌套"><a href="#嵌套" class="headerlink" title="嵌套"></a>嵌套</h3><blockquote>
-<p>所谓选择器嵌套指的是在一个选择器中嵌套另一个选择器来实现继承，从而增强了sass文件的结构性和可读性。在选择器嵌套中，可以使用&amp;表示父元素选择器.</p>
-</blockquote>
-<p><strong>选择器嵌套</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">//sass style</div><div class="line">//-------------------------------</div><div class="line">#top_nav&#123;</div><div class="line">  line-height: 40px;</div><div class="line">  text-transform: capitalize;</div><div class="line">  background-color:#333;</div><div class="line">  li&#123;</div><div class="line">    float:left;</div><div class="line">  &#125;</div><div class="line">  a&#123;</div><div class="line">    display: block;</div><div class="line">    padding: 0 10px;</div><div class="line">    color: #fff;</div><div class="line"></div><div class="line">    &amp;:hover&#123;</div><div class="line">      color:#ddd;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//css style</div><div class="line">//-------------------------------</div><div class="line">#top_nav&#123;</div><div class="line">  line-height: 40px;</div><div class="line">  text-transform: capitalize;</div><div class="line">  background-color:#333;</div><div class="line">&#125;  </div><div class="line">#top_nav li&#123;</div><div class="line">  float:left;</div><div class="line">&#125;</div><div class="line">#top_nav a&#123;</div><div class="line">  display: block;</div><div class="line">  padding: 0 10px;</div><div class="line">  color: #fff;</div><div class="line">&#125;</div><div class="line">#top_nav a:hover&#123;</div><div class="line">  color:#ddd;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><strong>属性嵌套</strong></p>
-<blockquote>
-<p>所谓属性嵌套指的是有些属性拥有同一个开始单词，如border-width，border-color都是以border开头。拿个官网的实例看下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">/sass style</div><div class="line">//-------------------------------</div><div class="line">.fakeshadow &#123;</div><div class="line">  border: &#123;</div><div class="line">    style: solid;</div><div class="line">    left: &#123;</div><div class="line">      width: 4px;</div><div class="line">      color: #888;</div><div class="line">    &#125;</div><div class="line">    right: &#123;</div><div class="line">      width: 2px;</div><div class="line">      color: #ccc;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//css style</div><div class="line">//-------------------------------</div><div class="line">.fakeshadow &#123;</div><div class="line">  border-style: solid;</div><div class="line">  border-left-width: 4px;</div><div class="line">  border-left-color: #888;</div><div class="line">  border-right-width: 2px;</div><div class="line">  border-right-color: #ccc; </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-</blockquote>
-<p>###@-root</p>
-<blockquote>
-<p>sass3.3.0中新增的功能，用来跳出选择器嵌套的。默认所有的嵌套，继承所有上级选择器，但有了这个就可以跳出所有上级选择器。</p>
-</blockquote>
-<p><strong>普通跳出</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line">//sass style</div><div class="line">//-------------------------------</div><div class="line">//没有跳出</div><div class="line">.parent-1 &#123;</div><div class="line">  color:#f00;</div><div class="line">  .child &#123;</div><div class="line">    width:100px;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//单个选择器跳出</div><div class="line">.parent-2 &#123;</div><div class="line">  color:#f00;</div><div class="line">  @at-root .child &#123;</div><div class="line">    width:200px;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//多个选择器跳出</div><div class="line">.parent-3 &#123;</div><div class="line">  background:#f00;</div><div class="line">  @at-root &#123;</div><div class="line">    .child1 &#123;</div><div class="line">      width:300px;</div><div class="line">    &#125;</div><div class="line">    .child2 &#123;</div><div class="line">      width:400px;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//css style</div><div class="line">//-------------------------------</div><div class="line">.parent-1 &#123;</div><div class="line">  color: #f00;</div><div class="line">&#125;</div><div class="line">.parent-1 .child &#123;</div><div class="line">  width: 100px;</div><div class="line">&#125;</div><div class="line"></div><div class="line">.parent-2 &#123;</div><div class="line">  color: #f00;</div><div class="line">&#125;</div><div class="line">.child &#123;</div><div class="line">  width: 200px;</div><div class="line">&#125;</div><div class="line"></div><div class="line">.parent-3 &#123;</div><div class="line">  background: #f00;</div><div class="line">&#125;</div><div class="line">.child1 &#123;</div><div class="line">  width: 300px;</div><div class="line">&#125;</div><div class="line">.child2 &#123;</div><div class="line">  width: 400px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<hr>
-<p><strong>@at-root (without: …)和@at-root (with: …)</strong></p>
-<blockquote>
-<p>默认@at-root只会跳出选择器嵌套，而不能跳出@media或@support，如果要跳出这两种，则需使用@at-root (without: media)，@at-root (without: support)。这个语法的关键词有四个：all（表示所有），rule（表示常规css），media（表示media），support。我们默认的@at-root其实就是@at-root (without:rule)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line">/sass style</div><div class="line">//-------------------------------</div><div class="line">//跳出父级元素嵌套</div><div class="line">@media print &#123;</div><div class="line">    .parent1&#123;</div><div class="line">      color:#f00;</div><div class="line">      @at-root .child1 &#123;</div><div class="line">        width:200px;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//跳出media嵌套，父级有效</div><div class="line">@media print &#123;</div><div class="line">  .parent2&#123;</div><div class="line">    color:#f00;</div><div class="line"></div><div class="line">    @at-root (without: media) &#123;</div><div class="line">      .child2 &#123;</div><div class="line">        width:200px;</div><div class="line">      &#125; </div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//跳出media和父级</div><div class="line">@media print &#123;</div><div class="line">  .parent3&#123;</div><div class="line">    color:#f00;</div><div class="line"></div><div class="line">    @at-root (without: all) &#123;</div><div class="line">      .child3 &#123;</div><div class="line">        width:200px;</div><div class="line">      &#125; </div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//sass style</div><div class="line">//-------------------------------</div><div class="line">@media print &#123;</div><div class="line">  .parent1 &#123;</div><div class="line">    color: #f00;</div><div class="line">  &#125;</div><div class="line">  .child1 &#123;</div><div class="line">    width: 200px;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@media print &#123;</div><div class="line">  .parent2 &#123;</div><div class="line">    color: #f00;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">.parent2 .child2 &#123;</div><div class="line">  width: 200px;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@media print &#123;</div><div class="line">  .parent3 &#123;</div><div class="line">    color: #f00;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">.child3 &#123;</div><div class="line">  width: 200px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-</blockquote>
-<p><strong>@at-root与&amp;配合使用</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">//sass style</div><div class="line">//-------------------------------</div><div class="line">.child&#123;</div><div class="line">    @at-root .parent &amp;&#123;</div><div class="line">        color:#f00;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//css style</div><div class="line">//-------------------------------</div><div class="line">.parent .child &#123;</div><div class="line">  color: #f00;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="混合（mixin）"><a href="#混合（mixin）" class="headerlink" title="混合（mixin）"></a>混合（mixin）</h3><blockquote>
-<p>sass中使用@mixin声明混合，可以传递参数，参数名以$符号开始，多个参数以逗号分开，也可以给参数设置默认值。声明的@mixin通过@include来调用。</p>
-<h2 id="无参数mixin"><a href="#无参数mixin" class="headerlink" title="无参数mixin"></a>无参数mixin</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">/sass style</div><div class="line">//-------------------------------</div><div class="line">@mixin center-block &#123;</div><div class="line">    margin-left:auto;</div><div class="line">    margin-right:auto;</div><div class="line">&#125;</div><div class="line">.demo&#123;</div><div class="line">    @include center-block;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//css style</div><div class="line">//-------------------------------</div><div class="line">.demo&#123;</div><div class="line">    margin-left:auto;</div><div class="line">    margin-right:auto;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</blockquote>
-<h2 id="有参数mixin"><a href="#有参数mixin" class="headerlink" title="有参数mixin"></a>有参数mixin</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">/sass style</div><div class="line">//-------------------------------   </div><div class="line">@mixin opacity($opacity:50) &#123;</div><div class="line">  opacity: $opacity / 100;</div><div class="line">  filter: alpha(opacity=$opacity);</div><div class="line">&#125;</div><div class="line"></div><div class="line">//css style</div><div class="line">//-------------------------------</div><div class="line">.opacity&#123;</div><div class="line">  @include opacity; //参数使用默认值</div><div class="line">&#125;</div><div class="line">.opacity-80&#123;</div><div class="line">  @include opacity(80); //传递参数</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>更多用法请参考<a href="http://www.w3cplus.com/sassguide/syntax.html" target="_blank" rel="external">Sass</a></p>
-<hr>
-<p>###继承</p>
-<blockquote>
-<p>ass中，选择器继承可以让选择器继承另一个选择器的所有样式，并联合声明。使用选择器的继承，要使用关键词@extend，后面紧跟需要继承的选择器。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">//sass style</div><div class="line">//-------------------------------</div><div class="line">h1&#123;</div><div class="line">  border: 4px solid #ff9aa9;</div><div class="line">&#125;</div><div class="line">.speaker&#123;</div><div class="line">  @extend h1;</div><div class="line">  border-width: 2px;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//css style</div><div class="line">//-------------------------------</div><div class="line">h1,.speaker&#123;</div><div class="line">  border: 4px solid #ff9aa9;</div><div class="line">&#125;</div><div class="line">.speaker&#123;</div><div class="line">  border-width: 2px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-</blockquote>
-<p><strong>占位符</strong></p>
-<blockquote>
-<p>sass 3.2.0以后就可以定义占位选择器%。这种选择器的优势在于：如果不调用则不会有任何多余的css文件，避免了以前在一些基础的文件中预定义了很多基础的样式，然后实际应用中不管是否使用了@extend去继承相应的样式，都会解析出来所有的样式。占位选择器以%标识定义，通过@extend调用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">//sass style</div><div class="line">//-------------------------------</div><div class="line">%ir&#123;</div><div class="line">  color: transparent;</div><div class="line">  text-shadow: none;</div><div class="line">  background-color: transparent;</div><div class="line">  border: 0;</div><div class="line">&#125;</div><div class="line">%clearfix&#123;</div><div class="line">  @if $lte7 &#123;</div><div class="line">    *zoom: 1;</div><div class="line">  &#125;</div><div class="line">  &amp;:before,</div><div class="line">  &amp;:after &#123;</div><div class="line">    content: &quot;&quot;;</div><div class="line">    display: table;</div><div class="line">    font: 0/0 a;</div><div class="line">  &#125;</div><div class="line">  &amp;:after &#123;</div><div class="line">    clear: both;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">#header&#123;</div><div class="line">  h1&#123;</div><div class="line">    @extend %ir;</div><div class="line">    width:300px;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">.ir&#123;</div><div class="line">  @extend %ir;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//css style</div><div class="line">//-------------------------------</div><div class="line">#header h1,</div><div class="line">.ir&#123;</div><div class="line">  color: transparent;</div><div class="line">  text-shadow: none;</div><div class="line">  background-color: transparent;</div><div class="line">  border: 0;</div><div class="line">&#125;</div><div class="line">#header h1&#123;</div><div class="line">  width:300px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-</blockquote>
-<p>基本运用到这，关于函数以及其他可以参考<a href="http://www.w3cplus.com/sassguide/syntax.html" target="_blank" rel="external">SASS</a>。</p>
-<p>###制定SCSS规范<br>1、所有导入文件以 _ 开头<br>2、可覆盖变量定义时加上 !default<br>3、变量及@function采用驼峰式命名<br>4、@mixin，%采用中划线命名<br>5、@mixin中参数有默认值的放在没有默认值前面<br>6、模块文件的变量在模块文件头部申明<br>7、如需@extend，请先设计成%</p>
+          SASS有两种后缀文件：一种后缀名为sass，不适用大括号和分号；另一种是scss文件，这种和我们平时写的css文件格式相差不大，使用大括号和分号。本篇文章讲解主要为scss，建议使用后缀名为scss的文件。12345678//文件后缀名为scss的语法body&#123;    backgroun
+          ...
 
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/10/16/sass初解/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -949,6 +863,15 @@
 
           
           
+             <span id="/2016/10/16/探究CSS3动画：transform-transition-animation/" class="leancloud_visitors" data-flag-title="探究CSS3动画：transform/transition/animation">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
 
           
         </div>
@@ -964,116 +887,16 @@
       
         
           
-            <h2 id="转换（transform）"><a href="#转换（transform）" class="headerlink" title="转换（transform）"></a>转换（transform）</h2><p>如大家了解的一样，转换分为2D转换和3D转换。利用CSS3的转换功我们能够对元素进行移动、缩放、转动、拉长或拉伸，并且能结合动画可以实现许多酷炫的效果。</p>
-<p>使用转换功能需要使用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    -webkit-transform：；//Chrome Safari</div><div class="line">       -moz-transform：；//Firefox</div><div class="line">        -ms-transform：；//for IE9</div><div class="line">         -o-transform：；//Opera</div><div class="line">            transform：；</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>值得注意的是，这里设置之后，其尺寸改变不会影响到别的元素，像是脱离了文档流一样设置了relative，然而在元素上设置margin等属性仍然会在其本来的盒子上影响到文档流别的元素。一言以蔽之，设置transform后未脱离文档流。</p>
-<h3 id="2D转换"><a href="#2D转换" class="headerlink" title="2D转换"></a>2D转换</h3><ul>
-<li>translate（）——移动</li>
-<li>rotate（）——旋转</li>
-<li>scale（）——缩放</li>
-<li>skew（）——翻转，根据给定的水平线和垂直线参数翻转角度</li>
-<li>matrix（）</li>
-<li>transform-origin（）</li>
-</ul>
-<p><strong>translate（）</strong></p>
-<blockquote>
-<p>元素根据给定的坐标（x，y）位置参数从其位置移动。</p>
-</blockquote>
-<p>注意，其实使用本方法就像设置relative一样，相对于原来位置偏移，且原位置仍然占据空间。</p>
-<p><strong>rotate（）</strong></p>
-<blockquote>
-<p>元素顺时针旋转给定角度（正值），逆时针则设置负值。eg：rotate（40deg）</p>
-</blockquote>
-<p>旋转的元素，占据的空间仍然未变，像设置了定位relatvie一样，在此基础上旋转，未脱离文档流。</p>
-<p><strong>scale（）</strong></p>
-<blockquote>
-<p>元素的尺寸会根据设置得scale（）方法增加或减少。改变后他可能会覆盖在其他元素上。</p>
-</blockquote>
-<p>如果只宽度或者高度尺寸变化，则可使用scaleX（）或者scaleY（）。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">div</div><div class="line">&#123;</div><div class="line">    -webkit-transform: scale(2,4);	/* Safari 和 Chrome */</div><div class="line">    -moz-transform: scale(2,4);	/* Firefox */</div><div class="line">    -ms-transform: scale(2,4);	/* IE 9 */</div><div class="line">    -o-transform: scale(2,4);	/* Opera */</div><div class="line">    transform: scale(2,4);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong>skew（）</strong><br>skew（x-angle，y-angle），沿X，Y偏转角度；<br>如果只给定一个值，即skew（angle），则会只向X轴偏转，但是我试了这样的写法skew（，angle），结果整个元素都不见了。求大家指教。<br>如果想只沿一个轴偏转，可以使用skewX（）或者skewY（）。</p>
-<p><strong>matrix（）</strong><br>matrix() 方法把所有 2D 转换方法组合在一起。<br>matrix() 方法需要六个参数，包含数学函数，允许您：旋转、缩放、移动以及倾斜元素。</p>
-<p><strong>transform-origin（）</strong></p>
-<p>transform-origin属性允许您改变被转换元素的位置。2D 转换元素能够改变元素 x 和 y轴。3D 转换元素还能改变其 Z 轴。</p>
-<p>语法<br><code>transform-origin: x-axis y-axis z-axis;</code></p>
-<h3 id="3D转换"><a href="#3D转换" class="headerlink" title="3D转换"></a>3D转换</h3><ul>
-<li>rotateX（）</li>
-<li>rotateY（)</li>
-</ul>
-<p>需要注意的是：opera不支持3D转换</p>
-<h2 id="transition（过渡）"><a href="#transition（过渡）" class="headerlink" title="transition（过渡）"></a>transition（过渡）</h2><p><strong>兼容性</strong>（不支持IE9及之前版本）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    -webkit-transition: width 2s;	/* Safari 和 Chrome */</div><div class="line">    -moz-transition: width 2s;	/* Firefox 4 */</div><div class="line">    -o-transition: width 2s;	/* Opera */</div><div class="line">    transition: width 2s;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong>过渡属性</strong></p>
-<ul>
-<li>transtion</li>
-<li>transtion-property</li>
-<li>transtion-durtion</li>
-<li>transtion-timing-function</li>
-<li>transtion-delay</li>
-</ul>
-<p><strong>如何工作？</strong><br>SS3 过渡是元素从一种样式逐渐改变为另一种的效果。<br>要实现这一点，必须规定两项内容：</p>
-<ul>
-<li>希望添加效果的CSS属性</li>
-<li>效果时长<br>通常，该属性会结束JS和伪类使用<br>eg：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">div</div><div class="line">&#123;</div><div class="line">width:100px;</div><div class="line">height:100px;</div><div class="line">background:yellow;</div><div class="line">transition:width 2s;</div><div class="line">-moz-transition:width 2s; /* Firefox 4 */</div><div class="line">-webkit-transition:width 2s; /* Safari and Chrome */</div><div class="line">-o-transition:width 2s; /* Opera */</div><div class="line">&#125;</div><div class="line"></div><div class="line">div:hover</div><div class="line">&#123;</div><div class="line">width:300px;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="动画（animation）"><a href="#动画（animation）" class="headerlink" title="动画（animation）"></a>动画（animation）</h2><p><strong>CSS3动画属性</strong></p>
-<ul>
-<li>@keyframes——规定动画</li>
-<li>animation——所有动画简写属性，除animation-play-state</li>
-<li>animation-name——规定@keyframes动画名称</li>
-<li>animation-durtion——规定一个动画花费的时间（ms或s），默认0</li>
-<li>animation-timing-function——规定动画的速度曲线，默认“ease”</li>
-<li>animation-delay——规定动画何时开始，默认0</li>
-<li>animation-iteration-count——规定动画播放次数，默认1</li>
-<li>animation-direction——规定动画是否在下一周期逆向播放，默认normal</li>
-<li>animation-play-state——规定动画是否正在运行或暂定默认“running”</li>
-<li>animation-fill-mode——规定对象时间之外的状态</li>
-</ul>
-<p><strong>兼容</strong>（IE9及之前版本不支持）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">  -webkit-animation:动画名;</div><div class="line">     -moz-animation:动画名;</div><div class="line">       -o-animation:动画名;</div><div class="line">          animation:动画名;</div><div class="line">  </div><div class="line">  </div><div class="line">  相应的动画帧：</div><div class="line">  @keyframes 动画名</div><div class="line">  &#123;</div><div class="line"></div><div class="line">  &#125;</div><div class="line"></div><div class="line"> @-moz-keyframes 动画名 /* Firefox */</div><div class="line">  &#123;</div><div class="line"></div><div class="line">  &#125;</div><div class="line"></div><div class="line">@-webkit-keyframes 动画名 /* Safari 和 Chrome */</div><div class="line"> &#123;</div><div class="line"></div><div class="line"> &#125;</div><div class="line"></div><div class="line">@-o-keyframes 动画名 /* Opera */</div><div class="line">&#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>众所周知，需在 CSS3 中创建动画，就得学习@keyframes 规则。@keyframes 规则用于创建动画。在 @keyframes 中规定某项 CSS 样式，就能创建由当前样式逐渐改为新样式的动画效果。<br><strong>那么什么是动画呢？</strong></p>
-<blockquote>
-<p>动画是使元素从一种样式逐渐变化为另一种样式的效果。我们可以改变任意多的样式任意多的次数。最好用百分比来规定变化发生的时间，或用关键词 “from” 和 “to”，等同于 0% 和 100%。0% 是动画的开始，100% 是动画的完成。始终定义 0% 和 100% 选择器。能得到最佳的浏览器支持。</p>
-</blockquote>
-<p><em>animation-timing-function</em></p>
-<ul>
-<li>linear：匀速</li>
-<li>ease：低速开始，加快，结束前变慢</li>
-<li>ease-in：低速开始</li>
-<li>ease-out：低速结束</li>
-<li>ease-in-out：低速开始和结束</li>
-<li><p>cubic-bezier（n，n，n）：未知</p>
-<p><em>animation-direction</em></p>
-</li>
-</ul>
-<ul>
-<li>normal：默认（正向）</li>
-<li>alternate：反向</li>
-</ul>
-<p>  <em>animation-iteration-count</em></p>
-<ul>
-<li>n：播放次数</li>
-<li>infinite：无限播放</li>
-</ul>
-<p><em>animation-play-state（）</em></p>
-<ul>
-<li>paused</li>
-<li>running</li>
-</ul>
-<p><em>animation-fill-mode</em></p>
-<ul>
-<li>none:不改变默认行为</li>
-<li>forwards：动画完成后，保持最后一个属性值（最后一个关键帧定义）</li>
-<li>backwards：在 animation-delay 所指定的一段时间内，在动画显示之前，应用开始属性值（在第一个关键帧中定义）。</li>
-<li>both：向前和向后填充模式都被应用。</li>
-</ul>
-<p><strong>动画实例</strong></p>
-<p>一个简单的天气预报模型，也是我在微博上看到的，就下载源码研究了一下。供大家学习参考。<br>HTML结构：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>aimation<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span>  <span class="attr">href</span>=<span class="string">"weather.css"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sunny"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"cloudy"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"rainy"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"rainbow"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"starry"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"stormy"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"snowy"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>具体可以前去<a href="http://www.html5tricks.com/pure-css3-weather-icon.html" target="_blank" rel="external">纯CSS天气预报</a>看看效果和源码。</p>
+          转换（transform）如大家了解的一样，转换分为2D转换和3D转换。利用CSS3的转换功我们能够对元素进行移动、缩放、转动、拉长或拉伸，并且能结合动画可以实现许多酷炫的效果。
+使用转换功能需要使用：
+1234567&#123;    -webkit-transform：；//Chrome Saf
+          ...
 
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/10/16/探究CSS3动画：transform-transition-animation/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1176,6 +999,15 @@
 
           
           
+             <span id="/2016/10/16/定位详解、层级、滤镜遮罩/" class="leancloud_visitors" data-flag-title="定位详解、层级、滤镜遮罩">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
 
           
         </div>
@@ -1191,23 +1023,15 @@
       
         
           
-            <p>##一、定位详解<br>在CSS中position/margin/float/padding属性能影响定位。</p>
-<p>###position<br>众所周知，position的属性值有relative、absolute，sticky，fixed、static、inherit。<br>position属性定义建立元素布局所用的定位机制。任何元素都可以定位，不过绝对或固定元素会生成一个块级框，而不论该元素本身是什么类型。相对定位元素会相对于它在正常流中的默认位置偏移。比较熟悉的值大概是相对定位relative、绝对定位absolute、staic（默认值），为了方便理解，在下面简单介绍下各个属性值得概念。</p>
-<p><strong>相对定位relative：</strong><br>a.相对定位不影响元素本身的特性；<br>b.不脱离文档流通过设置垂直或水平位置<br>c.让这个元素“相对于”它的起点（默认位置）进行移动。使用时不管是否移动 ，元素仍然占据原来的空间，因此移动元素会导致覆盖别的元素；<br>d.使用top/right/bottom/left控制，可数值（可负值）可百分数；</p>
-<p><strong>绝对定位absolute：</strong><br>a.元素框从文档流完全删除（脱离文档流），并相对于其包含块定位。包含块可能是文档中的另一个元素或者是初始包含块。元素原先在正常文档流中所占的空间会关闭，就好像元素原来不存在一样。元素定位后生成一个块级框，而不论原来它在正常流中生成何种类型的框。<br>b.使内嵌支持宽高；<br>c.块属性标签内容撑开元素；<br>d.如果有定位父级（有定位的父级而不论定位类型）相对于父级发生定位，没有定位父级，相对于浏览器窗口定位；对最近的定位父级发生定位；<br>e.一般配合相对定位使用，对其父级使用position：relative；</p>
-<p>static：默认值，元素框正常生成。块级元素生成一个矩形框，作为文档流的一部分，行内元素则会创建一个或多个行框，置于其父元素中。</p>
-<p><strong>fixed:</strong><br>元素框的表现类似于将 position 设置为 absolute，不过其包含块是视窗本身。</p>
-<p><strong>sticky:</strong><br>是一个新的css3属性，它的表现类似position:relative和position:fixed的合体，在目标区域在屏幕中可见时，它的行为就像position:relative;而当页面滚动超出目标区域时，它的表现就像position:fixed，它会固定在目标位置。webkit内核的浏览器支持sticky，目前实现这个属性值的浏览器不多。</p>
-<p>inherit：定应该从父元素继承 position 属性的值。所有主流浏览器都支持 position 属性。<br>注释：任何的版本的 Internet Explorer （包括 IE8）都不支持属性值 “inherit”。</p>
-<p>##层级<br>z-index只能在给定的环境下才会工作。可被用于将在一个元素放置于另一元素之后。z-dex值越大，越靠前；数值可以不连续。<br>IE下z-index默认值为0；firefox下其默认值为auto;</p>
-<p><em>层级规则:</em><br>1.具有负值的stacking contexts元素，按照出现的先后顺序排列（越靠后层级越靠上）<br>2.没有被定位，没有浮动的块级元素，按照出现的先后顺序排列<br>3.内联元素，按照出现的先后顺序排列<br>4.被定位的元素，按照出现的先后顺序排列</p>
-<p><em>注意：</em><br>不要滥用，z-index属性，定位元素默认后者层级比前者高，当被正确使用的时候，会改变自然的层叠顺序。当然，除非元素已经被定位按照互相交叠的形式展现，否则元素的层叠顺序并不会特别的明显。</p>
-<p><em>使用环境:</em><br>z-index只能工作在被明确定义了absolute，fixed或relative 这三个定位属性的元素中。</p>
-<p>##滤镜遮罩<br>滤镜：<br>背景设置颜色<code>#000黑色#fff白色</code><br>不透明度 <code>opacity:0~1;
-for IE：fliter:alpha(opacity=0~1)</code></p>
-<p>对body和html设置高度百分百；蒙板高宽百分百设置滤镜。弹窗高宽百分数设置定位，position：absolute；left：50%；top：50%；margin-top：；margin-left：；</p>
+          ##一、定位详解在CSS中position/margin/float/padding属性能影响定位。
+###position众所周知，position的属性值有relative、absolute，sticky，fixed、static、inherit。position属性定义建立元素布局所用的定位机
+          ...
 
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/10/16/定位详解、层级、滤镜遮罩/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1310,6 +1134,15 @@ for IE：fliter:alpha(opacity=0~1)</code></p>
 
           
           
+             <span id="/2016/10/16/重构/" class="leancloud_visitors" data-flag-title="重构">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
 
           
         </div>
@@ -1325,89 +1158,20 @@ for IE：fliter:alpha(opacity=0~1)</code></p>
       
         
           
-            <p>前端工程师：使用JavaScript、ActionScript等语言编写客户端脚本，实现动态效果，偏开发。<br>网页重构工程师：通过编写CSS、合理化页面结构来实现页面效果和提升性能。偏设计。</p>
-<hr>
-<p><strong>做网页重构需要：</strong></p>
-<ol>
-<li><p>还原设计稿视觉效果，并通过标准验证（HTML）</p>
-</li>
-<li><p>在1的基础上，实现多浏览器的兼容（HTML）</p>
-</li>
-<li><p>在2的基础上，标签语义化（HTML）</p>
-</li>
-<li><p>在3的基础上，选择较优的实现方式（包括模块化结构，方便程序脚本使用，HTML和CSS）</p>
-</li>
-<li><p>在4的基础上，考虑到扩展性、复用性和可维护性（HTML和CSS）</p>
-</li>
-<li><p>在5的基础上，考虑到整站的样式分布（包括如何实现分布）</p>
-</li>
-<li><p>在6的基础上，样式写法的优化（包括技巧的应用）</p>
-</li>
-</ol>
-<hr>
-<p><strong>通俗的讲，我们大约需要做到以下几点：</strong></p>
-<ol>
-<li>更改之前不合理的标签，使之语义化</li>
-<li>SASS、LESS嵌套层次不超过三层，过了就要改或者at root</li>
-<li>类名，id名做到行为层和样式层分离，加各自的前缀区分</li>
-<li>加足规范注释</li>
-<li>尽量减少标签数量，自闭合标签无需闭合，如<code>input</code>、<code>br</code>、<code>img</code>、<code>br</code>、<code>hr</code></li>
-<li>HTML5规范中 disabled、checked、selected等属性不用设置值</li>
-<li>避免过分重排，常见重排属性：<ul>
-<li>width</li>
-<li>height</li>
-<li>padding</li>
-<li>margin</li>
-<li>display</li>
-<li>border-width</li>
-<li>position</li>
-<li>top</li>
-<li>left</li>
-<li>right</li>
-<li>bottom</li>
-<li>font-size</li>
-<li>float</li>
-<li>text-align</li>
-<li>overflow-y</li>
-<li>font-weight</li>
-<li>overflow</li>
-<li>font-family</li>
-<li>line-height</li>
-<li>vertical-align</li>
-<li>clear</li>
-<li>white-space</li>
-<li>min-height</li>
-</ul>
-</li>
-</ol>
-<p>6.Display 属性会影响页面的渲染，合理使用。</p>
-<ul>
-<li>display: inline后不应该再使用 width、height、margin、padding 以及 float；</li>
-<li>display: inline-block 后不应该再使用 float；</li>
-<li>display: block 后不应该再使用 vertical-align；</li>
-<li>display: table-* 后不应该再使用 margin 或者 float；<br>7.优化CSS选择器，尽量避免使用消耗更多匹配时间的选择器，CSS 选择器是从右到左进行规则匹配。</li>
-<li>避免使用标签或 class 选择器限制 id 选择器</li>
-<li>避免使用通用选择器</li>
-<li>避免使用多层标签选择器。使用 class 选择器替换，减少css查找</li>
-<li>避免使用子选择器</li>
-<li>使用继承</li>
-</ul>
-<h3 id="重构目标"><a href="#重构目标" class="headerlink" title="重构目标"></a>重构目标</h3><ul>
-<li>标签语义化（HTML5）。</li>
-<li>sass嵌套层次过多（不能超过三层)，消除多余的id class等无用的css代码</li>
-<li>样式层（.container），行为层(J_container)分离  eg: J_SiteFooter J_Module 参考淘宝</li>
-<li>左右浮动分离（左边的向左浮动，右边的向右浮动），<strong>防止页面崩掉</strong>。电脑安装主流浏览器，测试每个页面是否崩掉。</li>
-<li>scss规范(看群里的scss全站设计PPT)<strong>重点</strong></li>
-<li>浏览器版本过低添加提升“升级您的浏览器”。</li>
-<li>css注释，所有需要导入的css加下划线前缀，看ppt规范。</li>
-<li>鼠标手型。</li>
-<li>图片的alt解释信息。</li>
-<li>因设计或排版而没有完全显示出来的文字信息的title提示</li>
-<li>网站logo的权重设置H1、网站主要标题、标识的权重设置H2-H6、stong、em、b等(对搜索引擎的友好可读性)</li>
-</ul>
-<p>参考资料 <a href="http://ued.sina.com.cn/?p=868" title="一个页面重构工程师眼中的“用户体验”" target="_blank" rel="external">http://ued.sina.com.cn/?p=868</a><br>        <a href="http://ued.sina.com.cn/?p=726" title="HTML5标签使用的常见误区" target="_blank" rel="external">http://ued.sina.com.cn/?p=726</a><br>        <a href="http://ued.sina.com.cn/?cat=7" title="UED页面构建团队" target="_blank" rel="external">http://ued.sina.com.cn/?cat=7</a><br>        <a href="http://mxd.tencent.com/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB%EF%BC%9A%E7%BD%91%E9%A1%B5%E8%AE%BE%E8%AE%A1%E4%B8%8E%E9%87%8D%E6%9E%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF%E3%80%90%E5%9F%BA%E7%A1%80%E7%AF%87%E3%80%91%E5%8E%9F" title="网页设计与重构那些事儿【基础篇】" target="_blank" rel="external">http://mxd.tencent.com/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB%EF%BC%9A%E7%BD%91%E9%A1%B5%E8%AE%BE%E8%AE%A1%E4%B8%8E%E9%87%8D%E6%9E%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF%E3%80%90%E5%9F%BA%E7%A1%80%E7%AF%87%E3%80%91%E5%8E%9F</a><br>        <a href="http://tongji.baidu.com/data/browser" title="百度浏览器研究院" target="_blank" rel="external">http://tongji.baidu.com/data/browser</a></p>
+          前端工程师：使用JavaScript、ActionScript等语言编写客户端脚本，实现动态效果，偏开发。网页重构工程师：通过编写CSS、合理化页面结构来实现页面效果和提升性能。偏设计。
 
-          
+做网页重构需要：
+
+还原设计稿视觉效果，并通过标准验证（HTML）
+
+在1的基础上，实现多浏览器的兼容（HTM
+          ...
+
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/10/16/重构/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1510,6 +1274,15 @@ for IE：fliter:alpha(opacity=0~1)</code></p>
 
           
           
+             <span id="/2016/10/16/编写可维护高质量的HTML和CSS代码/" class="leancloud_visitors" data-flag-title="编写高性能的CSS代码">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
 
           
         </div>
@@ -1525,148 +1298,20 @@ for IE：fliter:alpha(opacity=0~1)</code></p>
       
         
           
-            <blockquote>
-<p>本文主要参考<a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Writing_efficient_CSS" target="_blank" rel="external">MDN|编写高效的CSS</a>、译文<a href="http://www.reqianduan.com/2595.html" target="_blank" rel="external">编写高性能高质量的CSS代码</a>、《高性能网站建设指南》、<a href="https://developers.google.com/web/fundamentals/performance/" target="_blank" rel="external">谷歌|优化性能</a>、<a href="http://www.html-js.com/article/Front-end-home-best-practice-in-front-of-the-web-high-performance-CSS" target="_blank" rel="external">《web前端最佳实践》—高性能css</a>等总结而出。感谢前人的智慧！</p>
-</blockquote>
-<p>[TOC]</p>
-<hr>
-<p>##前言</p>
-<h3 id="CSS代码重构的目的："><a href="#CSS代码重构的目的：" class="headerlink" title="CSS代码重构的目的："></a>CSS代码重构的目的：</h3><p>我们写CSS代码时，不仅仅只是完成页面设计的效果，还应该让CSS代码易于管理，维护。我们对CSS代码重构主要有两个目的：<br>1、提高代码性能<br>2、提高代码的可维护性</p>
-<p>在这里我主要讲解CSS代码性能提升的一些知识。</p>
-<h3 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h3><blockquote>
-<p>性能优化是一门做减法的艺术。我们首要要尽力简化页面渲染过程，然后要使渲染过程的每一步都尽量高效。</p>
-</blockquote>
-<p><strong>提高CSS代码性能主要有两个点</strong>：</p>
-<p>1、提高页面的加载性能</p>
-<blockquote>
-<p>提高页面的加载性能，简单说就是减小CSS文件的大小，提高页面的加载速度，尽可以的利用http缓存</p>
-</blockquote>
-<p>2、提高CSS代码性能</p>
-<blockquote>
-<p>不同的CSS代码，浏览器对其解析的速度也是不一样的，如何提高浏览器解析CSS代码的速度也是我们要考虑的</p>
-</blockquote>
-<p>[TOC]</p>
-<h2 id="1-CSS选择器"><a href="#1-CSS选择器" class="headerlink" title="1.CSS选择器"></a>1.CSS选择器</h2><p>CSS选择器具有高效的继承性，引用Steve Souders的话， CSS选择器效率从高到低的排序如下：</p>
-<ul>
-<li>ID选择器 比如#header</li>
-<li>类选择器 比如.promo</li>
-<li>元素选择器 比如 div</li>
-<li>兄弟选择器 比如 h2 + p</li>
-<li>子选择器 比如 li &gt; ul</li>
-<li>后代选择器 比如 ul a 7. 通用选择器 比如 *</li>
-<li>属性选择器 比如 type = “text”</li>
-<li>伪类/伪元素选择器 比如 a:hover<br><em>以上引用自<a href="http://stevesouders.com/" target="_blank" rel="external">Steve Souders</a>的Even Faster网站</em></li>
-</ul>
-<p>纵使ID选择器很快、高效，但是它也仅仅如此,，尽量不要再css里面使用id。从Steve Souders的CSS Test我们可以看出ID选择器和类选择器在速度上的差异很小很小。</p>
-<h3 id="1-1组合选择器"><a href="#1-1组合选择器" class="headerlink" title="1.1组合选择器"></a>1.1组合选择器</h3><p>你可以有一个标准的选择器比如#nav，来选择任何在此元素下的后代元素。此刻，我们读这些是从左到右的方式。我们是先找到#nav，然后从它的里面找其他元素。但是浏览器解析这些不是这样的：浏览器解析选择器是从右到左的方式。</p>
-<p><em>如果想要知道更多浏览器这样解析的原因，请看<a href="http://stackoverflow.com/questions/5797014/why-do-browsers-match-CSS-selectors-from-right-to-left" target="_blank" rel="external">Stack Overflow</a>上的讨论</em></p>
-<h3 id="1-2关键选择器"><a href="#1-2关键选择器" class="headerlink" title="1.2关键选择器"></a>1.2关键选择器</h3><p>渲染样式时重要的是选择器的最后面的部分即为关键选择器（即用来匹配目标元素的那部分，而不是该元素的祖先元素）。在以下例子中将使用该术语讲解。</p>
-<p>例如，在下面规则中：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">a img, </div><div class="line">div &gt; h1, </div><div class="line">h1 + p &#123;</div><div class="line">  …</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>关键选择器为：<code>img</code>、<code>h1</code>、<code>p</code></p>
-<p>CSS规范并没有明确浏览器如何去实现样式系统，仅仅是说明了它们必须这样做。有鉴于此，不同的样式系统引擎可能会拥有完全不同的表现和行为，特别是 Gecko 与 WebKit， 这两个引擎都是开源项目，实现了类似的算法，具有极其相近的优缺点。接下来就让我们一睹样式系统如何工作…</p>
-<p>[TOC]</p>
-<h2 id="2-样式系统工作原理"><a href="#2-样式系统工作原理" class="headerlink" title="2.样式系统工作原理"></a>2.样式系统工作原理</h2><h3 id="2-1样式系统如何拆分规则"><a href="#2-1样式系统如何拆分规则" class="headerlink" title="2.1样式系统如何拆分规则"></a>2.1样式系统如何拆分规则</h3><p>编写好的CSS代码，有助提升页面的渲染速度。本质上，引擎需要解析的CSS规则越少，性能越好。样式系统将规则拆分成四个主要类别，如下所示，性能依次降低。</p>
-<ul>
-<li>ID规则</li>
-<li>class规则</li>
-<li>标签规则</li>
-<li>通用规则</li>
-</ul>
-<p>理解这些分类是十分关键的，因为它们是构建规则匹配块的基础。</p>
-<h4 id="ID规则"><a href="#ID规则" class="headerlink" title="ID规则"></a>ID规则</h4><blockquote>
-<p>即包含了那些将 ID 选择器作为关键选择器的规则。</p>
-</blockquote>
-<p>示例</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#nav &#123;.....&#125;</div><div class="line">a#person-intruc &#123;.....&#125;</div><div class="line">#nav[href=&quot;#&quot;] &#123;.....&#125;</div><div class="line">.....</div></pre></td></tr></table></figure>
-<h4 id="class规则"><a href="#class规则" class="headerlink" title="class规则"></a>class规则</h4><blockquote>
-<p>如果一个规则将一个 class 明确作为它的关键选择器，那么它就属于该类别。</p>
-</blockquote>
-<p>示例</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">.nav &#123;.....&#125;</div><div class="line">a.person-intruc &#123;.....&#125;</div><div class="line">.nav[href=&quot;#&quot;] &#123;.....&#125;</div><div class="line">.....</div></pre></td></tr></table></figure>
-<h4 id="标签规则"><a href="#标签规则" class="headerlink" title="标签规则"></a>标签规则</h4><blockquote>
-<p>如果既没有 class 也没有 ID 来明确作为关键选择器，那么接下来的候选者就是 标签 类别。 如果一条规则将一个标签作为它的关键选择器，那么这条规则就属于该类别。</p>
-</blockquote>
-<p>示例</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">li &#123;.....&#125;</div><div class="line">a &gt; img &#123;.....&#125;</div><div class="line">a[href=&quot;#&quot;]&#123;.....&#125;</div><div class="line">p+ul&#123;.....&#125;</div><div class="line">.....</div></pre></td></tr></table></figure>
-<h4 id="通用规则"><a href="#通用规则" class="headerlink" title="通用规则"></a>通用规则</h4><blockquote>
-<p>不属于上面那些类别的规则都属于这个类别。</p>
-</blockquote>
-<p>示例</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[hidden=&quot;true&quot;] &#123;…&#125; /* A universal rule */  </div><div class="line">* &#123;…&#125;		/* A universal rule */</div><div class="line">tree &gt; [collapsed=&quot;true&quot;] &#123;…&#125; /* A universal rule */</div></pre></td></tr></table></figure>
-<h3 id="2-2样式系统如何匹配规则"><a href="#2-2样式系统如何匹配规则" class="headerlink" title="2.2样式系统如何匹配规则"></a>2.2样式系统如何匹配规则</h3><blockquote>
-<p>样式系统从关键选择器开始匹配规则，然后左移（查找规则选择器的任何祖先元素）。只要选择器的子树（substree）一直在检查，样式系统就会持续左移，直到和规则匹配，或者是因为不匹配而放弃该条规则。在这其中涉及到规则过滤的基本概念，分类的意义恰恰在此，过滤掉无关的规则（避免浪费时间去匹配）。</p>
-</blockquote>
-<hr>
-<p><strong>现在问题来了，那么什么样式的CSS代码能够更快的匹配，不浪费时间呢？</strong></p>
-<p>[TOC]</p>
-<h2 id="3-高效的CSS代码编写"><a href="#3-高效的CSS代码编写" class="headerlink" title="3.高效的CSS代码编写"></a>3.高效的CSS代码编写</h2><h3 id="3-1避免使用通用规则和单个属性选择器作为关键选择器"><a href="#3-1避免使用通用规则和单个属性选择器作为关键选择器" class="headerlink" title="3.1避免使用通用规则和单个属性选择器作为关键选择器"></a>3.1避免使用通用规则和单个属性选择器作为关键选择器</h3><blockquote>
-<p>如<code>*</code>、<code>[hidden=&quot;true&quot;]</code>等通用规则十分浪费匹配时间。不必要时尽量不使用。</p>
-</blockquote>
-<h3 id="3-2避免过度约束"><a href="#3-2避免过度约束" class="headerlink" title="3.2避免过度约束"></a>3.2避免过度约束</h3><p>不要用标签名或 classes 来限定 ID 规则，不要用标签名限定 class 规则</p>
-<blockquote>
-<p><strong>如果规则拥有 ID 选择器作为其关键选择器，则不要为规则增加标签名</strong>。因为 ID 是唯一的，增加标签只会没必要地减缓匹配过程。</p>
-<p><strong>对于ID的在class这里同样适用。标签可能会随着设计改变</strong>，所以仅仅选择严格语义化的名字作为类名并运用是很好的选择。</p>
-</blockquote>
-<p><em>【注意】</em>定义过多id会使重用性降低，维护更困难，所以不建议多用id。</p>
-<p><em>尽量使用最具体的类别</em>，即能一次搞定就一次搞定。<em>解析速度变慢的罪魁祸首就是标签类别中有过多的规则。</em>通过增加 class 到元素上，我们就可以进一步的将这些规则划分到 Class 类别中，这将减少用于匹配标签的时间。</p>
-<h3 id="3-3避免后代选择器"><a href="#3-3避免后代选择器" class="headerlink" title="3.3避免后代选择器"></a>3.3避免后代选择器</h3><p><strong>后代选择器是 CSS 中性能耗用最大的选择器。</strong>它的性能开销相当大——特别是当选择器在标签或通用类别中。通常我们需要的是 <strong>子选择器</strong>。不仅性能低下而且代码很脆弱，html代码和css代码严重耦合，html代码结构发生变化时，CSS也得修改。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">差</div><div class="line">treehead treerow treecell &#123;…&#125;</div><div class="line"></div><div class="line">略好，但还是差（查看下一条指南）</div><div class="line">treehead &gt; treerow &gt; treecell &#123;…&#125;</div></pre></td></tr></table></figure>
-<h3 id="3-4标签分类的规则不要包含子选择器"><a href="#3-4标签分类的规则不要包含子选择器" class="headerlink" title="3.4标签分类的规则不要包含子选择器"></a>3.4标签分类的规则不要包含子选择器</h3><blockquote>
-<p><strong>标签类别的规则中避免使用子选择器</strong>。否则的话，在该元素出现的所有地方，匹配时间都将极大延长（特别是当规则很可能会被匹配）。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">差</div><div class="line">treehead &gt; treerow &gt; treecell &#123;…&#125;</div><div class="line">好//采用class规则</div><div class="line">.treecell-header &#123;…&#125;</div></pre></td></tr></table></figure>
-<p>当使用子选择器时要十分谨慎。能免则免。</p>
-<h3 id="3-5了解依赖继承，减少代码量"><a href="#3-5了解依赖继承，减少代码量" class="headerlink" title="3.5了解依赖继承，减少代码量"></a>3.5了解依赖继承，减少代码量</h3><blockquote>
-<p>了解哪些属性能够继承，然后允许它们这样做！</p>
-</blockquote>
-<p>不可以继承的属性：<br>position、z-index、top、right、bottom、left、clip、display、</p>
-<p>可以继承的属性：<br>color、font、text-transform、white-space、tab-size、word-break、word-wrap、overflow-wrap、text-align、text-align-last、text-justify、word-spacing、letter-spacing、text-indent、line-height、text-size-adjus、text-shadow、direction、writing-mode、list-style、list-style-image、list-style-position、list-style-type、table-layout、border-collapse、border-spacing、empty-cells、quotes、cursor、zoom、pointer-events</p>
-<h3 id="3-6避免链式（交集）选择符"><a href="#3-6避免链式（交集）选择符" class="headerlink" title="3.6避免链式（交集）选择符"></a>3.6避免链式（交集）选择符</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// bad</div><div class="line">.menu.left.icon &#123;..&#125;</div><div class="line"></div><div class="line">// good</div><div class="line">.menu-left-icon &#123;..&#125;</div></pre></td></tr></table></figure>
-<h3 id="3-7尽可能精简规则、尽量不要在选择符定义过多层级，层级越少，同时也降低了css和dom结构的耦合程度，提高样式的可维护性"><a href="#3-7尽可能精简规则、尽量不要在选择符定义过多层级，层级越少，同时也降低了css和dom结构的耦合程度，提高样式的可维护性" class="headerlink" title="3.7尽可能精简规则、尽量不要在选择符定义过多层级，层级越少，同时也降低了css和dom结构的耦合程度，提高样式的可维护性"></a>3.7尽可能精简规则、尽量不要在选择符定义过多层级，层级越少，同时也降低了css和dom结构的耦合程度，提高样式的可维护性</h3><p><strong>定义简洁的css规则</strong></p>
-<p>使用复合（紧凑）语法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">// bad</div><div class="line">.someclass &#123;</div><div class="line"> padding-top: 20px;</div><div class="line"> padding-bottom: 20px;</div><div class="line"> padding-left: 10px;</div><div class="line"> padding-right: 10px;</div><div class="line"> background: #000;</div><div class="line"> background-image: url(../imgs/carrot.png);</div><div class="line"> background-position: bottom;</div><div class="line"> background-repeat: repeat-x;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// good</div><div class="line">.someclass &#123;</div><div class="line"> padding: 20px 10px 20px 10px;</div><div class="line"> background: #000 url(../imgs/carrot.png) repeat-x bottom;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><em>【特别注意】</em>合理使用简写<br>你可能知道，以下两行 CSS 代码并不是等价的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">background: rebeccapurple;</div><div class="line">background-color: rebeccapurple;</div></pre></td></tr></table></figure></p>
-<p>前者是简写，它可以确保让你得到 rebeccapurple 纯色背景；但如果你用的是展开式的单个属性（background-color），那这个元素的背景最终有可能会显示为一个粉色的渐变图案、一张猫的图片、或任何东西，因为同时可能会有一条 background-image 声明在起作用。通常在使用展开式属性的写法时，会遇到这样的问题：展开式写法并不会帮助你清空所有相关的其他属性，从而可能会干扰你想要达到的效果。</p>
-<p>了解更多，请参考<a href="https://github.com/cssmagic/CSS-Secrets/issues/8" target="_blank" rel="external"> CSS 编码技巧</a></p>
-<p><strong>避免不必要的命名空间</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// bad</div><div class="line">.someclass table tr.otherclass td.somerule &#123;..&#125;</div><div class="line"></div><div class="line">//good</div><div class="line">.someclass .otherclass td.somerule &#123;..&#125;</div></pre></td></tr></table></figure>
-<p><strong>避免不必要的重复</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">// bad</div><div class="line"></div><div class="line">.someclass &#123;</div><div class="line"> color: red;</div><div class="line"> background: blue;</div><div class="line"> font-size: 15px;</div><div class="line">&#125;</div><div class="line"></div><div class="line">.otherclass &#123;</div><div class="line"> color: red;</div><div class="line"> background: blue;</div><div class="line"> font-size: 15px;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// good</div><div class="line"></div><div class="line">.someclass, .otherclass &#123;</div><div class="line"> color: red;</div><div class="line"> background: blue;</div><div class="line"> font-size: 15px;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><em>在上面规则的基础上，合并相同定义（进一步合并不同类里的重复的规则），删除无效的定义</em></p>
-<h3 id="3-8避免-important"><a href="#3-8避免-important" class="headerlink" title="3.8避免 !important"></a>3.8避免 !important</h3><p>更多关于！important请仔细阅读该篇文章<a href="http://www.zcfy.cc/article/the-importance-of-important-forcing-immutability-in-css-308.html" target="_blank" rel="external">!important 的重要性：CSS 不变性</a>。建议阅读英语版本，该篇中文翻译某些地方感觉不太恰当。仅仅在不得不使用它的时候辅助规则</p>
-<h3 id="3-9避免使用CSS表达式和滤镜"><a href="#3-9避免使用CSS表达式和滤镜" class="headerlink" title="3.9避免使用CSS表达式和滤镜"></a>3.9避免使用CSS表达式和滤镜</h3><p>使用CSS 的expression()通常会造成多次运算。实际上，需要用到CSS表达式的地方，通常能够找到其他替代方案，所以避免使用CSS表达式。</p>
-<p><em>那么什么是css expression？</em></p>
-<blockquote>
-<p>IE5及其以后版本支持在CSS中使用expression，用来把CSS属性和Javascript脚本关联起来，这里的CSS属性可以是元素固有的属性，也可以是自定义属性。就是说CSS属性后面可以是一段Javascript表达式，CSS属性的值等于Javascript表达式计算的结果。在表达式中可以直接引用元素自身的属性和方法，也可以使用其他浏览器对象。</p>
-</blockquote>
-<h3 id="3-10关于-import"><a href="#3-10关于-import" class="headerlink" title="3.10关于@import"></a>3.10关于@import</h3><p>import规则一定要先于除了@charset的其他任何CSS规则，尽可能少用该方法引进。在编写scss时如果引进文件需要合并需采用<code>@import &quot;xxx.scss&quot;</code>。</p>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#myDiv &#123;</div><div class="line">position: absolute;</div><div class="line">width: 100px;</div><div class="line">height: 100px;</div><div class="line">background:#c00;</div><div class="line">left: expression(document.body.offsetWidth - 180   &quot;px&quot;);//这儿</div><div class="line">top: expression(document.body.offsetHeight - -80   &quot;px&quot;);//这儿</div><div class="line">text-align:center;</div><div class="line">line-height:90px;</div><div class="line">color:#fff;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>[TOC]</p>
-<h2 id="4-CSS中的图片处理"><a href="#4-CSS中的图片处理" class="headerlink" title="4.CSS中的图片处理"></a>4.CSS中的图片处理</h2><h3 id="4-1不给图片设置不符合自身的尺寸（即缩放）"><a href="#4-1不给图片设置不符合自身的尺寸（即缩放）" class="headerlink" title="4.1不给图片设置不符合自身的尺寸（即缩放）"></a>4.1不给图片设置不符合自身的尺寸（即缩放）</h3><p><em>【解释】</em>：、同一张图片可能会在页面不同地方多次使用，比如缩略图、正常图、大图。问题来了，如果图片原始尺寸和实际需求不同，在使用过程中就会存在性能问题，利用<strong>样式缩放</strong>会带来cpu的额外计算过程，增加了图片在浏览器的渲染时间，网络传输过程也会占更多带宽，增加下载时间。因此，最佳做法是，为需要的部分单独做一套图片，初始页面加载时就能更快展示。</p>
-<h3 id="4-2使用css”雪碧图”"><a href="#4-2使用css”雪碧图”" class="headerlink" title="4.2使用css”雪碧图”"></a>4.2使用css”雪碧图”</h3><p>是将零散的图片合并成一张大图，在利用css进行背景定位。好处是减少请求数，提高了图片整体的加载速度。<br>但它也存在一些缺点：</p>
-<p>比如，多张图片合并成大图，需要精确计算，仔细的调整位置，单纯手工制作是一件很复杂的事情。（所幸现在有一些工具可以帮我们做）</p>
-<p>另外，维护过程复杂，<strong>要尽量让已有的图片保持原来的位置不变</strong>，如果是背景图的尺寸发生变化导致原有区域无法放置，那就只好放弃，如果非要在原有位置修改，则剩余的图片样式都需要修改，是很繁琐的过程。<strong>新加的图片最好放在最后面</strong>。</p>
-<p><strong>使用不当会导致性能问题，最大的问题就是内存消耗。如果制作过程不做任何的规划，随意摆放，则可能会使图片变得相当大，从而很占内存</strong>。</p>
-<p><strong>建议</strong></p>
-<ul>
-<li>雪碧图的尺寸要优化好，空白尽可能少；</li>
-<li>及时清理不再使用的图片；</li>
-<li>将雪碧图权重做分离，全局/框架级的和局部/模块级的分离开；</li>
-<li>缓存设定和更新频率匹配，如果将每天更新的雪碧图的缓存设置到一个月很容易出问题的。</li>
-</ul>
-<h3 id="4-3最佳实践"><a href="#4-3最佳实践" class="headerlink" title="4.3最佳实践"></a>4.3最佳实践</h3><p>1、在项目后期应用css sprite技术</p>
-<p>因为一般在开发过程中，会比较频繁的修改或者更换图片，如果这个时候使用sprite技术，就会增加很多开发成本。</p>
-<p>2、合理组织“雪碧”图</p>
-<p>如果要把所有的图片放在一张图上面，也会有不妥，维护方面也不会很方便。组织背景图主要按照模块和背景图的风格来划分。比如，作为展示的缩略图放在一起，评论、点赞、上下箭头等图标放在一起等。</p>
-<p>3、控制“雪碧”图的尺寸和大小</p>
-<p>因为大尺寸的图片会占用大量的内存，所以要控制在合理尺寸，推荐长宽相乘不超过2500，大小在200kb内</p>
-<p>4、合理控制背景图单元间的距离及背景图位置</p>
-<p>这个原则是为了防止在背景图比元素大小更小的时候，区域出现别的无关背景图</p>
-<p>5、借助相关工具处理sprite</p>
-
           
+本文主要参考MDN|编写高效的CSS、译文编写高性能高质量的CSS代码、《高性能网站建设指南》、谷歌|优化性能、《web前端最佳实践》—高性能css等总结而出。感谢前人的智慧！
+
+[TOC]
+
+##前言
+CSS代码重构的目的：我们写CSS代码时，不仅仅只是完成页面设计的效果，还应该让CSS代码易于
+          ...
+
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/10/16/编写可维护高质量的HTML和CSS代码/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1750,10 +1395,10 @@ for IE：fliter:alpha(opacity=0~1)</code></p>
 
           
             <div class="site-state-item site-state-tags">
-              <a href="/tags">
+              
                 <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
-              </a>
+              
             </div>
           
 
@@ -1763,12 +1408,64 @@ for IE：fliter:alpha(opacity=0~1)</code></p>
 
         <div class="links-of-author motion-element">
           
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/HappyAdu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/Leonard_Aduking" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5341330364" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/a-du-89-4" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-zhihu"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
         </div>
 
         
         
 
         
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://boyuanblog.com/" title="张博元的博客" target="_blank">张博元的博客</a>
+                </li>
+              
+            </ul>
+          </div>
         
 
       </section>
@@ -1802,7 +1499,7 @@ for IE：fliter:alpha(opacity=0~1)</code></p>
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Muse
+    NexT.Pisces
   </a>
 </div>
 
@@ -1838,22 +1535,22 @@ for IE：fliter:alpha(opacity=0~1)</code></p>
 
 
   
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
 
   
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
 
   
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
 
   
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
 
   
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
 
   
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
   
@@ -1867,6 +1564,13 @@ for IE：fliter:alpha(opacity=0~1)</code></p>
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
 
   
 
@@ -1898,7 +1602,7 @@ for IE：fliter:alpha(opacity=0~1)</code></p>
 
   
     
-    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
     <script src="/js/src/hook-duoshuo.js"></script>
   
 
@@ -2039,6 +1743,113 @@ for IE：fliter:alpha(opacity=0~1)</code></p>
   
 
   
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("8nAYsy2H0OYidbIYd6f8fbwH-gzGzoHsz", "DLe9N3lcmHHmtqG7kyifxVrf");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
 
   
 
